@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" fill="none">
+  <rect width="240" height="96" rx="16" fill="#EEF2FB"/>
+  <rect x="18" y="22" width="52" height="52" rx="12" fill="#1C3270"/>
+  <path d="M32 62V34h12l10 14V34h10v28H54V48L44 62H32Z" fill="#fff"/>
+  <text x="86" y="44" fill="#1C3270" font-family="Tajawal, Arial" font-size="17" font-weight="800">الدلتا للأخشاب</text>
+  <text x="86" y="66" fill="#3154AD" font-family="Arial" font-size="11" font-weight="700" letter-spacing="0.5">DELTA WOOD</text>
+</svg>

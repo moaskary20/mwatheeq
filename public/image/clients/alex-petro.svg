@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" fill="none">
+  <rect width="240" height="96" rx="16" fill="#EEF2FB"/>
+  <circle cx="44" cy="48" r="26" fill="#243F8A"/>
+  <circle cx="44" cy="48" r="10" fill="#fff"/>
+  <circle cx="44" cy="48" r="18" stroke="#6F8FD6" stroke-width="3" fill="none"/>
+  <text x="82" y="44" fill="#1C3270" font-family="Tajawal, Arial" font-size="16" font-weight="800">بتروكيماويات الإسكندرية</text>
+  <text x="82" y="66" fill="#3154AD" font-family="Arial" font-size="10" font-weight="700" letter-spacing="0.5">ALEX PETROCHEM</text>
+</svg>
