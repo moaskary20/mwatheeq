@@ -10,6 +10,7 @@ class BlogComment extends Model
 {
     protected $fillable = [
         'blog_post_id',
+        'user_id',
         'name',
         'email',
         'body',
@@ -26,6 +27,11 @@ class BlogComment extends Model
     public function post(): BelongsTo
     {
         return $this->belongsTo(BlogPost::class, 'blog_post_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function scopeApproved(Builder $query): Builder

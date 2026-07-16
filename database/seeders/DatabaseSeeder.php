@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'مدير النظام',
                 'password' => Hash::make('password'),
+                'is_admin' => true,
             ],
         );
 
@@ -33,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'phone' => '01287070112',
             'email' => 'info@mwatheeq.test',
             'whatsapp' => '01272269000',
-            'facebook_url' => 'https://facebook.com/mwatheeq',
+            'facebook_url' => 'https://www.facebook.com/Elmawatheq',
             'instagram_url' => 'https://instagram.com/mwatheeq',
             'address' => '٩ شارع د. برجي، بجوار مستشفى الأهلي التخصصي، كفر عبدو، الإسكندرية',
             'address_en' => '9 Dr. Burji Street, next to Al Ahly Specialized Hospital, Kafr Abdo, Alexandria',

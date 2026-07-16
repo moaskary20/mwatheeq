@@ -96,32 +96,32 @@
                     @endforelse
                 </div>
 
-                <form action="{{ route('blog.comment', $post) }}" method="POST" class="blog-comment-form">
-                    @csrf
-                    <h3>أضف ردّاً</h3>
-                    <p class="blog-comment-form-hint">يظهر ردّك بعد المراجعة من الإدارة.</p>
+                @auth
+                    <form action="{{ route('blog.comment', $post) }}" method="POST" class="blog-comment-form">
+                        @csrf
+                        <h3>أضف ردّاً</h3>
+                        <p class="blog-comment-form-hint">
+                            تردّ باسم <strong>{{ auth()->user()->name }}</strong> — يظهر الرد بعد مراجعة الإدارة.
+                        </p>
 
-                    <div class="blog-comment-form-grid">
                         <div>
-                            <label for="comment_name" class="field-label">الاسم</label>
-                            <input id="comment_name" name="name" type="text" value="{{ old('name') }}" required class="field" placeholder="اسمك">
-                            @error('name') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                            <label for="comment_body" class="field-label">الرد</label>
+                            <textarea id="comment_body" name="body" rows="4" required class="field field-textarea" placeholder="اكتب ردّك هنا...">{{ old('body') }}</textarea>
+                            @error('body') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
                         </div>
-                        <div>
-                            <label for="comment_email" class="field-label">البريد (اختياري)</label>
-                            <input id="comment_email" name="email" type="email" value="{{ old('email') }}" class="field" placeholder="email@example.com" dir="ltr">
-                            @error('email') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+
+                        <button type="submit" class="btn-primary mt-5">إرسال الرد</button>
+                    </form>
+                @else
+                    <div class="blog-comment-login">
+                        <h3>سجّل دخولك للمشاركة</h3>
+                        <p>الردود متاحة فقط للأعضاء المسجّلين. أنشئ حساباً أو سجّل دخولك أولاً.</p>
+                        <div class="blog-comment-login-actions">
+                            <a href="{{ route('login') }}" class="btn-primary">تسجيل الدخول</a>
+                            <a href="{{ route('register') }}" class="btn-outline">إنشاء حساب</a>
                         </div>
                     </div>
-
-                    <div class="mt-4">
-                        <label for="comment_body" class="field-label">الرد</label>
-                        <textarea id="comment_body" name="body" rows="4" required class="field field-textarea" placeholder="اكتب ردّك هنا...">{{ old('body') }}</textarea>
-                        @error('body') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
-                    </div>
-
-                    <button type="submit" class="btn-primary mt-5">إرسال الرد</button>
-                </form>
+                @endauth
             </div>
         </div>
     </section>

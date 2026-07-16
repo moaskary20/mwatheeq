@@ -41,19 +41,20 @@ class BlogController extends Controller
     {
         abort_unless($post->is_published, 404);
 
+        $user = $request->user();
+
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'max:255'],
             'body' => ['required', 'string', 'max:2000'],
         ], [
-            'name.required' => 'يرجى إدخال الاسم.',
-            'email.email' => 'البريد الإلكتروني غير صالح.',
             'body.required' => 'يرجى كتابة الرد.',
         ]);
 
         BlogComment::query()->create([
-            ...$validated,
             'blog_post_id' => $post->id,
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'body' => $validated['body'],
             'is_approved' => false,
         ]);
 

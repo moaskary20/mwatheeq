@@ -66,6 +66,10 @@ class BlogCommentResource extends Resource
                     ->label('الموضوع')
                     ->searchable()
                     ->limit(30),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('المستخدم')
+                    ->placeholder('—')
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('الاسم')
                     ->searchable()

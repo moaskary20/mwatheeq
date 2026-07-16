@@ -37,8 +37,18 @@
                 <a class="nav-link {{ request()->routeIs('contact') ? 'is-active' : '' }}" href="{{ route('contact') }}">تواصل معنا</a>
             </nav>
 
-            <div class="flex items-center gap-3">
-                <a href="{{ route('contact') }}" class="btn-primary hidden sm:inline-flex !py-2.5 !px-5 !text-xs">اطلب استشارة</a>
+            <div class="flex items-center gap-2 sm:gap-3">
+                @auth
+                    <span class="hidden text-xs font-bold text-brand/70 lg:inline">{{ auth()->user()->name }}</span>
+                    <form action="{{ route('logout') }}" method="POST" class="hidden sm:block">
+                        @csrf
+                        <button type="submit" class="btn-outline !py-2.5 !px-4 !text-xs">خروج</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="hidden sm:inline-flex btn-outline !py-2.5 !px-4 !text-xs">دخول</a>
+                    <a href="{{ route('register') }}" class="btn-primary hidden sm:inline-flex !py-2.5 !px-5 !text-xs">تسجيل</a>
+                @endauth
+                <a href="{{ route('contact') }}" class="btn-primary hidden md:inline-flex !py-2.5 !px-5 !text-xs">اطلب استشارة</a>
                 <button
                     type="button"
                     data-menu-toggle
@@ -83,10 +93,24 @@
             <a href="{{ route('blog.index') }}">المدونة</a>
             <a href="{{ route('home') }}#clients">عملاؤنا</a>
             <a href="{{ route('contact') }}">تواصل معنا</a>
+            @auth
+                <a href="{{ route('blog.index') }}">مرحباً، {{ auth()->user()->name }}</a>
+            @else
+                <a href="{{ route('login') }}">تسجيل الدخول</a>
+                <a href="{{ route('register') }}">إنشاء حساب</a>
+            @endauth
         </nav>
 
         <div class="mobile-drawer-foot">
-            <a href="{{ route('contact') }}" class="btn-primary w-full">اطلب استشارة</a>
+            @auth
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn-outline w-full justify-center">تسجيل الخروج</button>
+                </form>
+            @else
+                <a href="{{ route('register') }}" class="btn-primary w-full justify-center">إنشاء حساب</a>
+            @endauth
+            <a href="{{ route('contact') }}" class="btn-outline mt-3 w-full justify-center">اطلب استشارة</a>
         </div>
     </aside>
 
