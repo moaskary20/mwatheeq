@@ -103,7 +103,7 @@ class HomeController extends Controller
             'instagram_url' => '',
             'footer_text' => '',
             'goals_subtitle' => 'نحن ملتزمون بتحقيق أهدافنا من خلال فريق عمل محترف وملتزم.',
-            'website_url' => 'www.Mawathiq.com',
+            'website_url' => 'mwatheeq.com',
         ]);
     }
 

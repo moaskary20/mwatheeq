@@ -330,8 +330,8 @@
                         </span>
                         <div>
                             <p class="text-xs text-white/70">الموقع</p>
-                            <a href="https://{{ ltrim($settings['website_url'] ?? 'www.Mawathiq.com', '/') }}" class="text-base font-bold hover:underline" target="_blank" rel="noopener">
-                                {{ $settings['website_url'] ?? 'www.Mawathiq.com' }}
+                            <a href="https://{{ ltrim($settings['website_url'] ?? 'mwatheeq.com', '/') }}" class="text-base font-bold hover:underline" target="_blank" rel="noopener">
+                                {{ $settings['website_url'] ?? 'mwatheeq.com' }}
                             </a>
                         </div>
                     </div>

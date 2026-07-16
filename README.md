@@ -21,7 +21,7 @@ composer serve
 
 ## بيانات الدخول الافتراضية
 
-- البريد: `admin@mwatheeq.test`
+- البريد: `admin@mwatheeq.com`
 - كلمة المرور: `password`
 
 ## ما يشمله المشروع

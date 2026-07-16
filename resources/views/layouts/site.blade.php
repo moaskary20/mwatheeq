@@ -119,22 +119,31 @@
     </main>
 
     <footer class="site-footer text-white">
-        <div class="site-container relative z-10 flex flex-col gap-10 py-16 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-                <img src="{{ asset('image/logo.png') }}" alt="مواثيق" class="h-12 w-auto rounded-lg bg-white px-3 py-2 object-contain shadow-[0_10px_30px_rgba(0,0,0,0.15)]">
-                <p class="mt-5 max-w-md text-sm leading-7 text-white/80">
-                    {{ $settings['footer_text'] ?? '' }}
-                </p>
-                <div class="mt-6 flex flex-wrap gap-4 text-sm font-bold text-white/85">
-                    <a class="transition hover:text-white" href="{{ route('services') }}">خدماتنا</a>
-                    <a class="transition hover:text-white" href="{{ route('about') }}">من نحن</a>
-                    <a class="transition hover:text-white" href="{{ route('blog.index') }}">المدونة</a>
-                    <a class="transition hover:text-white" href="{{ route('contact') }}">تواصل معنا</a>
+        <div class="site-container relative z-10 py-14 sm:py-16">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <img src="{{ asset('image/logo.png') }}" alt="مواثيق" class="footer-logo">
+                    <p class="footer-text">
+                        {{ $settings['footer_text'] ?? '' }}
+                    </p>
                 </div>
+
+                <nav class="footer-nav" aria-label="روابط الفوتر">
+                    <a href="{{ route('services') }}">خدماتنا</a>
+                    <a href="{{ route('about') }}">من نحن</a>
+                    <a href="{{ route('blog.index') }}">المدونة</a>
+                    <a href="{{ route('contact') }}">تواصل معنا</a>
+                </nav>
             </div>
-            <div class="rounded-2xl border border-white/15 bg-white/10 px-5 py-4 text-sm text-white/80 backdrop-blur-sm">
-                <p>&copy; {{ date('Y') }} المواثيق للخدمات الحكومية.</p>
-                <p class="mt-1 text-white/60">جميع الحقوق محفوظة.</p>
+
+            <div class="footer-bottom">
+                <p class="footer-copy">
+                    &copy; {{ date('Y') }} المواثيق للخدمات الحكومية — جميع الحقوق محفوظة.
+                </p>
+                <p class="footer-credit">
+                    <span class="footer-credit-label">تم التصميم بواسطة</span>
+                    <span class="footer-credit-brand">Caesar Agency</span>
+                </p>
             </div>
         </div>
     </footer>

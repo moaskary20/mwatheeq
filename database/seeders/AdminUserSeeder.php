@@ -10,13 +10,26 @@ class AdminUserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::query()->updateOrCreate(
-            ['email' => 'admin@mwatheeq.test'],
-            [
+        $admin = User::query()
+            ->whereIn('email', ['admin@mwatheeq.com', 'admin@mwatheeq.test'])
+            ->first();
+
+        if ($admin) {
+            $admin->update([
                 'name' => 'مدير النظام',
+                'email' => 'admin@mwatheeq.com',
                 'password' => Hash::make('password'),
                 'is_admin' => true,
-            ],
-        );
+            ]);
+
+            return;
+        }
+
+        User::query()->create([
+            'name' => 'مدير النظام',
+            'email' => 'admin@mwatheeq.com',
+            'password' => Hash::make('password'),
+            'is_admin' => true,
+        ]);
     }
 }

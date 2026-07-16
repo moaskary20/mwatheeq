@@ -37,7 +37,7 @@ class SiteContentSeeder extends Seeder
             'vision' => 'أن نكون المرجع الأول في صياغة المواثيق والاتفاقيات الموثوقة في المنطقة.',
             'mission' => 'تمكين الأفراد والمؤسسات من توثيق علاقاتهم التجارية والقانونية بمعايير احترافية وشفافة.',
             'phone' => '01287070112',
-            'email' => 'info@mwatheeq.test',
+            'email' => 'info@mwatheeq.com',
             'whatsapp' => '01272269000',
             'facebook_url' => 'https://www.facebook.com/Elmawatheq',
             'instagram_url' => 'https://instagram.com/mwatheeq',
@@ -46,7 +46,7 @@ class SiteContentSeeder extends Seeder
             'map_query' => '9 Dr. Burji Street, next to Al Ahly Specialized Hospital, Kafr Abdo, Alexandria',
             'footer_text' => 'المواثيق للخدمات الحكومية — شريككم الموثوق في الإجراءات الحكومية.',
             'goals_subtitle' => 'نحن ملتزمون بتحقيق أهدافنا من خلال فريق عمل محترف وملتزم.',
-            'website_url' => 'www.Mawathiq.com',
+            'website_url' => 'mwatheeq.com',
         ];
 
         foreach ($settings as $key => $value) {
