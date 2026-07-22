@@ -184,7 +184,7 @@
                         حلول متكاملة تسهّل إجراءاتكم الحكومية بكفاءة ووضوح واحترافية عالية.
                     </p>
                 </div>
-                <a href="{{ route('contact') }}" class="btn-outline shrink-0 self-start">اطلب خدمة الآن</a>
+                <a href="{{ route('contact') }}" class="btn-service shrink-0 self-start">اطلب خدمة الآن</a>
             </div>
 
             <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -198,10 +198,7 @@
                             @endif
                             <div class="service-card-overlay"></div>
                             <div class="service-card-body">
-                                <span class="inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-bold tracking-wide backdrop-blur-sm">
-                                    {{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}
-                                </span>
-                                <h3 class="mt-3 text-2xl font-extrabold">{{ $service->title }}</h3>
+                                <h3 class="text-2xl font-extrabold">{{ $service->title }}</h3>
                                 <p class="mt-3 text-sm leading-7 text-white/85">{{ $service->summary }}</p>
                             </div>
                         </div>
@@ -301,7 +298,7 @@
     {{-- 5. Why Choose Us --}}
     <section id="why" class="why-section overflow-hidden">
         <div class="grid lg:min-h-[680px] lg:grid-cols-2">
-            <div class="why-panel-brand relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-brand via-brand-soft to-brand-deep px-6 py-14 text-white sm:px-10 sm:py-16 lg:px-14 lg:py-20">
+            <div class="why-panel-brand relative flex flex-col justify-between overflow-hidden px-6 py-14 text-white sm:px-10 sm:py-16 lg:px-14 lg:py-20">
                 <div class="why-panel-glow" aria-hidden="true"></div>
 
                 <div class="relative z-10">
@@ -448,7 +445,7 @@
                 </div>
                 <div class="clients-trust-item">
                     <strong>قطاعات متعددة</strong>
-                    <span>صناعة · غذاء · مواد بناء</span>
+                    <span>تجارة · إنشاء · بنوك</span>
                 </div>
                 <div class="clients-trust-item">
                     <strong>شراكة مستمرة</strong>
@@ -459,6 +456,58 @@
         <span class="section-ribbon section-ribbon-bottom" aria-hidden="true"></span>
     </section>
 
-    {{-- 8. Contact --}}
+    {{-- 8. Partners / Entities --}}
+    <section id="partners" class="partners-section section-pad">
+        <div class="partners-blueprint" aria-hidden="true"></div>
+
+        <div class="site-container relative z-10">
+            <div class="partners-intro reveal">
+                <div>
+                    <p class="section-eyebrow">شبكة تعامل حكومي</p>
+                    <h2 class="section-title">الجهات المتعامل معها</h2>
+                    <p class="section-lead">
+                        خريطة الجهات والهيئات التي نتعامل معها يوميًا لإنجاز معاملاتكم بمسار واضح وموثوق.
+                    </p>
+                </div>
+                <div class="partners-intro-seal" aria-hidden="true">
+                    <span class="partners-intro-seal-ring"></span>
+                    <strong>{{ count($partners) }}</strong>
+                    <small>جهة وهيئة</small>
+                </div>
+            </div>
+
+            <div class="partners-map mt-12">
+                <svg class="partners-map-routes" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="partners-route" d="M60 70 C220 70, 280 140, 420 140 S680 40, 940 90"/>
+                    <path class="partners-route partners-route--alt" d="M80 300 C260 240, 340 320, 520 280 S760 360, 940 300"/>
+                    <path class="partners-route" d="M120 200 C300 120, 480 260, 700 180 S860 220, 960 160"/>
+                </svg>
+
+                <div class="partners-nodes">
+                    @foreach ($partners as $index => $partner)
+                        @php
+                            $isLast = $loop->last;
+                            $name = $partner['name'];
+                            $icon = $partner['icon'];
+                        @endphp
+                        <article
+                            class="reveal partner-node {{ $isLast ? 'partner-node--wide' : '' }}"
+                            style="transition-delay: {{ $index * 70 }}ms"
+                        >
+                            <span class="partner-node-seal" aria-hidden="true">
+                                @include('site.partials.partner-icon', ['icon' => $icon])
+                            </span>
+                            <div class="partner-node-body">
+                                <span class="partner-node-label">جهة معتمدة</span>
+                                <h3>{{ $name }}</h3>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- 9. Contact --}}
     @include('site.partials.contact-section')
 @endsection

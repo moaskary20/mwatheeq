@@ -135,7 +135,7 @@
     {{-- Why --}}
     <section id="why" class="why-section overflow-hidden">
         <div class="grid lg:min-h-[680px] lg:grid-cols-2">
-            <div class="why-panel-brand relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-brand via-brand-soft to-brand-deep px-6 py-14 text-white sm:px-10 sm:py-16 lg:px-14 lg:py-20">
+            <div class="why-panel-brand relative flex flex-col justify-between overflow-hidden px-6 py-14 text-white sm:px-10 sm:py-16 lg:px-14 lg:py-20">
                 <div class="why-panel-glow" aria-hidden="true"></div>
                 <div class="relative z-10">
                     <p class="reveal text-sm font-bold tracking-[0.2em] text-white/75">تميّزنا</p>

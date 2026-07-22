@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 96" fill="none">
+  <rect width="280" height="96" rx="16" fill="#EEF2FB"/>
+  <rect x="16" y="22" width="52" height="52" rx="12" fill="#243F8A"/>
+  <text x="42" y="56" text-anchor="middle" fill="#fff" font-family="Tajawal, Arial" font-size="22" font-weight="800">ب</text>
+  <text x="82" y="36" fill="#001B3E" font-family="Tajawal, Arial" font-size="13" font-weight="800">شركة البركة لقطاع غيار</text>
+  <text x="82" y="56" fill="#3154AD" font-family="Tajawal, Arial" font-size="12" font-weight="700">سيارات النقل الثقيل</text>
+</svg>

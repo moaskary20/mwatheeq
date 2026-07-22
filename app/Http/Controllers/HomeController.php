@@ -26,6 +26,7 @@ class HomeController extends Controller
             'goals' => Goal::query()->published()->get(),
             'whyPoints' => WhyPoint::query()->published()->get(),
             'clients' => $this->clients(),
+            'partners' => $this->partners(),
         ]));
     }
 
@@ -128,14 +129,33 @@ class HomeController extends Controller
     protected function clients(): array
     {
         return [
-            ['name' => 'النيل للمعادن', 'logo' => 'image/clients/nile-metals.svg'],
-            ['name' => 'بتروكيماويات الإسكندرية', 'logo' => 'image/clients/alex-petro.svg'],
-            ['name' => 'مصر للصناعات الغذائية', 'logo' => 'image/clients/misr-foods.svg'],
-            ['name' => 'الدلتا للأخشاب', 'logo' => 'image/clients/delta-wood.svg'],
-            ['name' => 'الفيروز للسيراميك', 'logo' => 'image/clients/fayrouz-ceramic.svg'],
-            ['name' => 'الراية للصناعات الهندسية', 'logo' => 'image/clients/raya-eng.svg'],
-            ['name' => 'سيناء للإسمنت', 'logo' => 'image/clients/sinai-cement.svg'],
-            ['name' => 'بورسعيد للغزل والنسيج', 'logo' => 'image/clients/portsaid-textile.svg'],
+            ['name' => 'شركة الصفاء للاستيراد والتصدير (للمولدات)', 'logo' => 'image/clients/al-safa.svg'],
+            ['name' => 'شركة الوادي لتصدير الحاصلات الزراعية', 'logo' => 'image/clients/al-wadi.svg'],
+            ['name' => 'شركة الحياة للإنشاء والتعمير', 'logo' => 'image/clients/al-hayat.svg'],
+            ['name' => 'شركة البركة لقطاع غيار سيارات النقل الثقيل', 'logo' => 'image/clients/al-baraka-parts.svg'],
+            ['name' => 'الجمعية التعاونية للبناء والإسكان للعاملين بشركة النصر للأصواف والمنسوجات الممتازة (ستيا)', 'logo' => 'image/clients/setia-coop.svg'],
+            ['name' => 'بنك البركة مصر', 'logo' => 'image/clients/al-baraka-bank.svg'],
+            ['name' => 'شركة حلوان للحديد والصلب', 'logo' => 'image/clients/helwan-steel.svg'],
+        ];
+    }
+
+    /**
+     * @return list<array{name: string, icon: string}>
+     */
+    protected function partners(): array
+    {
+        return [
+            ['name' => 'مأموريات الشهر العقاري', 'icon' => 'registry'],
+            ['name' => 'هيئة المساحة المصرية', 'icon' => 'survey'],
+            ['name' => 'هيئة الطيران المدني', 'icon' => 'aviation'],
+            ['name' => 'هيئة الآثار', 'icon' => 'antiquities'],
+            ['name' => 'هيئة المياه وهيئة الصرف الصحي', 'icon' => 'water'],
+            ['name' => 'هيئة الاستثمار', 'icon' => 'investment'],
+            ['name' => 'هيئة الاتصالات', 'icon' => 'telecom'],
+            ['name' => 'هيئة المجتمعات العمرانية', 'icon' => 'urban'],
+            ['name' => 'جهاز مدينة برج العرب', 'icon' => 'city'],
+            ['name' => 'جهاز مدينة ٦ أكتوبر', 'icon' => 'city-oct'],
+            ['name' => 'وجميع الهيئات والمؤسسات الحكومية الأخرى', 'icon' => 'government'],
         ];
     }
 }

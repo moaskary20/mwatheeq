@@ -23,7 +23,7 @@
                         من المسح والتسجيل إلى استخراج التراخيص — نرافقكم في كل خطوة بإطار قانوني واضح وسرعة عالية.
                     </p>
                 </div>
-                <a href="{{ route('contact') }}" class="btn-outline shrink-0 self-start">اطلب خدمة الآن</a>
+                <a href="{{ route('contact') }}" class="btn-service shrink-0 self-start">اطلب خدمة الآن</a>
             </div>
 
             <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -37,10 +37,7 @@
                             @endif
                             <div class="service-card-overlay"></div>
                             <div class="service-card-body">
-                                <span class="inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-bold tracking-wide backdrop-blur-sm">
-                                    {{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}
-                                </span>
-                                <h3 class="mt-3 text-2xl font-extrabold">{{ $service->title }}</h3>
+                                <h3 class="text-2xl font-extrabold">{{ $service->title }}</h3>
                                 <p class="mt-3 text-sm leading-7 text-white/85">{{ $service->summary }}</p>
                             </div>
                         </div>
