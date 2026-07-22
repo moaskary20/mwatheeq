@@ -13,6 +13,24 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen font-sans">
+    <div id="site-preloader" class="site-preloader" role="status" aria-live="polite" aria-label="جاري التحميل">
+        <div class="site-preloader-inner">
+            <p class="site-preloader-kicker">المواثيق للخدمات الحكومية</p>
+            <div class="site-preloader-orbit">
+                <span class="site-preloader-ring" aria-hidden="true"></span>
+                <div class="site-preloader-logo">
+                    <img
+                        src="{{ asset('image/logo.png') }}"
+                        alt="المواثيق للخدمات الحكومية"
+                        width="180"
+                        height="180"
+                    >
+                </div>
+            </div>
+            <p class="site-preloader-welcome">يرحب بكم</p>
+        </div>
+    </div>
+
     <header
         data-site-header
         class="site-header fixed inset-x-0 top-0 z-50 border-b border-brand/10 bg-white/85 shadow-[0_8px_30px_rgba(49,84,173,0.08)] backdrop-blur-md"

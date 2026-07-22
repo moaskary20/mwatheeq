@@ -41,6 +41,97 @@
 }
 
 @layer components {
+    .site-preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        background: #f4f7fb;
+        transition: opacity 0.45s ease, visibility 0.45s ease;
+    }
+
+    .site-preloader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .site-preloader-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.35rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .site-preloader-kicker,
+    .site-preloader-welcome {
+        margin: 0;
+        font-size: clamp(1.15rem, 3.5vw, 1.65rem);
+        font-weight: 800;
+        color: #3154ad;
+        letter-spacing: -0.01em;
+    }
+
+    .site-preloader-orbit {
+        position: relative;
+        width: min(72vw, 15.5rem);
+        height: min(72vw, 15.5rem);
+        display: grid;
+        place-items: center;
+    }
+
+    .site-preloader-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 9999px;
+        background: conic-gradient(
+            from 0deg,
+            #3154ad 0deg 58deg,
+            transparent 58deg 90deg,
+            #3154ad 90deg 148deg,
+            transparent 148deg 180deg,
+            #3154ad 180deg 238deg,
+            transparent 238deg 270deg,
+            #3154ad 270deg 328deg,
+            transparent 328deg 360deg
+        );
+        -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+        mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+        animation: preloader-spin 1.15s linear infinite;
+    }
+
+    .site-preloader-logo {
+        position: relative;
+        z-index: 1;
+        width: 78%;
+        height: 78%;
+        display: grid;
+        place-items: center;
+        border-radius: 9999px;
+        background: #fff;
+        box-shadow: 0 18px 40px rgba(49, 84, 173, 0.16);
+        padding: 1.1rem;
+    }
+
+    .site-preloader-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    @keyframes preloader-spin {
+        to { transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .site-preloader-ring {
+            animation: none;
+        }
+    }
+
     .site-container {
         @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
     }
@@ -2896,6 +2987,7 @@
         .goals-float-card,
         .clients-track,
         .partners-route,
+        .site-preloader-ring,
         .whatsapp-float,
         .whatsapp-float-pulse,
         .map-pin-dot {

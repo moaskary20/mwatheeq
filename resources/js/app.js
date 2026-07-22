@@ -1,5 +1,19 @@
 import './bootstrap';
 
+const hidePreloader = () => {
+    const preloader = document.getElementById('site-preloader');
+    if (!preloader || preloader.classList.contains('is-hidden')) return;
+
+    preloader.classList.add('is-hidden');
+    window.setTimeout(() => preloader.remove(), 550);
+};
+
+window.addEventListener('load', () => {
+    window.setTimeout(hidePreloader, 400);
+});
+
+window.setTimeout(hidePreloader, 4000);
+
 document.addEventListener('DOMContentLoaded', () => {
     const menuButton = document.querySelector('[data-menu-toggle]');
     const mobileMenu = document.querySelector('[data-mobile-menu]');
