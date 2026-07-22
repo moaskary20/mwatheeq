@@ -63,7 +63,7 @@ class SiteContentSeeder extends Seeder
                 'summary' => 'إعداد الخرائط المساحية وتحديد المواقع والمساحات بدقة عالية.',
                 'description' => '<p>نقدّم خدمات الرفع المساحي وإعداد الخرائط لتحديد المواقع والمساحات وفق المعايير الفنية المعتمدة.</p>',
                 'icon' => 'heroicon-o-map',
-                'image' => 'image/services/surveying.jpg',
+                'image' => 'image/012.jpeg',
                 'sort_order' => 1,
             ],
             [
@@ -72,7 +72,7 @@ class SiteContentSeeder extends Seeder
                 'summary' => 'رفع مساحي رقمي بأحدث التقنيات لبيانات دقيقة وقابلة للاستخدام.',
                 'description' => '<p>نوفّر الرفع المساحي الرقمي باستخدام أحدث التقنيات لضمان دقة البيانات وسهولة استخدامها في الإجراءات الحكومية.</p>',
                 'icon' => 'heroicon-o-cpu-chip',
-                'image' => 'image/services/surveying.jpg',
+                'image' => 'image/01012.jpeg',
                 'sort_order' => 2,
             ],
             [
