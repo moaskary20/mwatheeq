@@ -153,7 +153,7 @@ class SiteContentSeeder extends Seeder
                 'sort_order' => 1,
             ],
             [
-                'title' => 'المسح والرفع المساحي',
+                'title' => 'الرفع المساحي',
                 'subtitle' => 'تحديد المواقع وقياس المساحات بدقة ميدانية معتمدة',
                 'image' => 'image/slides/hero-02.jpg',
                 'button_text' => 'خدماتنا',

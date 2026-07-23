@@ -163,7 +163,7 @@ return [
                 'button' => 'Contact us',
             ],
             2 => [
-                'title' => 'Surveying & cadastral surveying',
+                'title' => 'Cadastral surveying',
                 'subtitle' => 'Locating sites and measuring areas with certified field accuracy',
                 'button' => 'Our services',
             ],
