@@ -29,7 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileOverlay?.toggleAttribute('hidden', !open);
         mobileMenu?.setAttribute('aria-hidden', String(!open));
         menuButton?.setAttribute('aria-expanded', String(open));
-        menuButton?.setAttribute('aria-label', open ? 'إغلاق القائمة' : 'فتح القائمة');
+        menuButton?.setAttribute(
+            'aria-label',
+            open
+                ? (menuButton.dataset.labelClose || 'Close menu')
+                : (menuButton.dataset.labelOpen || 'Open menu'),
+        );
         document.body.classList.toggle('menu-open', open);
         iconOpen?.classList.toggle('hidden', open);
         iconClose?.classList.toggle('hidden', !open);

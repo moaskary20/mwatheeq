@@ -1,13 +1,15 @@
 @extends('layouts.site')
 
-@section('title', 'من نحن — مواثيق')
+@section('title', __('site.nav.about').' — '.__('site.brand_short'))
 
 @section('content')
     @include('site.partials.page-hero', [
-        'eyebrow' => 'عن المواثيق',
-        'title' => 'شريك موثوق في الخدمات الحكومية',
-        'current' => 'من نحن',
-        'lead' => $settings['about_body'] ?: 'تأسست مواثيق لتقدّم حلولاً متكاملة في الإجراءات الحكومية باحترافية ودقة عالية.',
+        'eyebrow' => __('site.intro.eyebrow'),
+        'title' => __('site.home_extra.about_block_title'),
+        'current' => __('site.nav.about'),
+        'lead' => is_arabic()
+            ? ($settings['about_body'] ?: __('site.home_extra.about_block_lead'))
+            : __('site.home_extra.about_block_lead'),
     ])
 
     {{-- Intro --}}
@@ -19,25 +21,17 @@
                 <div class="reveal soft-panel lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none lg:border-0">
                     <div class="heading-stack">
                         <span class="heading-watermark" aria-hidden="true">مواثيق</span>
-                        <p class="section-eyebrow">تعرف علينا</p>
-                        <h2 class="section-title">شريككم الموثوق لإنجاز معاملات الجهات الحكومية</h2>
+                        <p class="section-eyebrow">{{ __('site.intro.eyebrow') }}</p>
+                        <h2 class="section-title">{{ __('site.intro.title') }}</h2>
                     </div>
                     <div class="mt-6 space-y-5 text-base leading-9 text-brand/80 sm:text-lg sm:leading-9">
-                        <p>
-                            نوفر حلولًا متكاملة لإنجاز جميع المعاملات والإجراءات الحكومية بكفاءة واحترافية، من خلال فريق متخصص يمتلك خبرة واسعة في التعامل مع مختلف الجهات الحكومية، بما في ذلك الشهر العقاري، ودواوين المحافظات، والأحياء، وهيئة المساحة المصرية، وغيرها من الجهات ذات الصلة.
-                        </p>
-                        <p>
-                            نتولى تنفيذ جميع الإجراءات اللازمة لتسجيل الأراضي والعقارات، واستخراج التراخيص، وإنهاء معاملات تأسيس الشركات وتعديلها، مع الالتزام الكامل بالأنظمة واللوائح القانونية المعمول بها.
-                        </p>
-                        <p>
-                            نعمل على تبسيط الإجراءات وتسريع دورة العمل، بما يضمن توفير الوقت والجهد، وتحقيق أعلى مستويات الدقة والموثوقية في إنجاز معاملاتكم.
-                        </p>
-                        <p class="font-bold text-brand">
-                            خبرتنا... تضمن لكم إنجازًا أسرع، وإجراءات أكثر سلاسة، وخدمة احترافية يمكنكم الاعتماد عليه.
-                        </p>
+                        <p>{{ __('site.intro.p1') }}</p>
+                        <p>{{ __('site.intro.p2') }}</p>
+                        <p>{{ __('site.intro.p3') }}</p>
+                        <p class="font-bold text-brand">{{ __('site.intro.p4') }}</p>
                     </div>
                     <div class="mt-8 flex flex-wrap gap-2.5">
-                        @foreach (['الشهر العقاري', 'ديوان المحافظات', 'ديوان الأحياء', 'الدفاع المدني', 'تراخيص الشركات'] as $tag)
+                        @foreach (__('site.intro.tags') as $tag)
                             <span class="intro-chip">{{ $tag }}</span>
                         @endforeach
                     </div>
@@ -59,18 +53,18 @@
             <div class="reveal order-2 lg:order-1">
                 <div class="heading-stack">
                     <span class="heading-watermark" aria-hidden="true">نحن</span>
-                    <p class="section-eyebrow">{{ $settings['about_title'] ?: 'من نحن' }}</p>
-                    <h2 class="section-title">رؤيتنا ورسالتنا</h2>
+                    <p class="section-eyebrow">{{ locale_text('site.home_extra.about_title', $settings['about_title'] ?: null) }}</p>
+                    <h2 class="section-title">{{ __('site.about_page.vision_title') }}</h2>
                 </div>
-                <p class="section-lead">{{ $settings['about_body'] }}</p>
+                <p class="section-lead">{{ locale_text('site.home_extra.about_block_lead', $settings['about_body'] ?? null) }}</p>
                 <div class="mt-8 grid gap-4 sm:grid-cols-2">
                     <div class="brand-panel">
-                        <h3 class="relative z-10 text-sm font-bold text-white/80">رؤيتنا</h3>
-                        <p class="relative z-10 mt-3 text-base leading-8 text-white/95">{{ $settings['vision'] }}</p>
+                        <h3 class="relative z-10 text-sm font-bold text-white/80">{{ __('site.home_extra.vision') }}</h3>
+                        <p class="relative z-10 mt-3 text-base leading-8 text-white/95">{{ locale_text('site.home_extra.vision_text', $settings['vision'] ?? null) }}</p>
                     </div>
                     <div class="mission-panel">
-                        <h3 class="text-sm font-extrabold text-brand">رسالتنا</h3>
-                        <p class="mt-3 text-base leading-8 text-brand/80">{{ $settings['mission'] }}</p>
+                        <h3 class="text-sm font-extrabold text-brand">{{ __('site.home_extra.mission') }}</h3>
+                        <p class="mt-3 text-base leading-8 text-brand/80">{{ locale_text('site.home_extra.mission_text', $settings['mission'] ?? null) }}</p>
                     </div>
                 </div>
             </div>
@@ -92,14 +86,15 @@
                     <div class="reveal heading-stack">
                         <span class="heading-watermark" aria-hidden="true">أهداف</span>
                         <div class="flex items-center gap-3">
-                            <p class="section-eyebrow">رؤيتنا العملية</p>
+                            <p class="section-eyebrow">{{ __('site.goals.eyebrow') }}</p>
                             <div class="goal-accent-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
                         </div>
-                        <h2 class="section-title">أهدافنا</h2>
-                        <p class="section-lead">{{ $settings['goals_subtitle'] ?? 'نحن ملتزمون بتحقيق أهدافنا من خلال فريق عمل محترف وملتزم.' }}</p>
+                        <h2 class="section-title">{{ __('site.goals.title') }}</h2>
+                        <p class="section-lead">{{ locale_text('site.goals.subtitle', $settings['goals_subtitle'] ?? null) }}</p>
                     </div>
                     <div class="goals-grid mt-11">
                         @forelse ($goals as $index => $goal)
+                            @php $goalKey = $goal->sort_order ?: ($index + 1); @endphp
                             <article class="reveal goal-card goal-card--{{ ($index % 4) + 1 }}" style="transition-delay: {{ $index * 100 }}ms">
                                 <div class="goal-card-top">
                                     <span class="goal-number" aria-hidden="true">{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}</span>
@@ -107,14 +102,14 @@
                                         <span class="goal-check" aria-hidden="true">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" /></svg>
                                         </span>
-                                        <h3>{{ $goal->title }}</h3>
+                                        <h3>{{ locale_text('site.goals.items.'.$goalKey.'.title', $goal->title) }}</h3>
                                     </div>
                                 </div>
-                                <p class="goal-card-text">{{ $goal->summary }}</p>
+                                <p class="goal-card-text">{{ locale_text('site.goals.items.'.$goalKey.'.summary', $goal->summary) }}</p>
                                 <span class="goal-card-glow" aria-hidden="true"></span>
                             </article>
                         @empty
-                            <p class="text-brand/60">لا توجد أهداف منشورة حالياً.</p>
+                            <p class="text-brand/60">{{ __('site.goals.empty') }}</p>
                         @endforelse
                     </div>
                 </div>
@@ -124,7 +119,7 @@
                         <span class="goals-ring goals-ring--inner" aria-hidden="true"></span>
                         <span class="goals-accent-block" aria-hidden="true"></span>
                         <div class="photo-blob photo-blob-lg goals-photo">
-                            <img src="{{ asset('image/goals/team.jpg') }}" alt="فريق عمل محترف" loading="lazy">
+                            <img src="{{ asset('image/goals/team.jpg') }}" alt="{{ __('site.goals.team_alt') }}" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -138,29 +133,30 @@
             <div class="why-panel-brand relative flex flex-col justify-between overflow-hidden px-6 py-14 text-white sm:px-10 sm:py-16 lg:px-14 lg:py-20">
                 <div class="why-panel-glow" aria-hidden="true"></div>
                 <div class="relative z-10">
-                    <p class="reveal text-sm font-bold tracking-[0.2em] text-white/75">تميّزنا</p>
-                    <h2 class="reveal mt-3 text-4xl font-extrabold leading-snug sm:text-5xl">لماذا تختارنا؟</h2>
-                    <p class="reveal mt-4 max-w-md text-base leading-8 text-white/85">نجمع بين الخبرة الميدانية والدقة الإدارية لنقدّم تجربة سلسة ونتائج موثوقة.</p>
+                    <p class="reveal text-sm font-bold tracking-[0.2em] text-white/75">{{ __('site.why.eyebrow') }}</p>
+                    <h2 class="reveal mt-3 text-4xl font-extrabold leading-snug sm:text-5xl">{{ __('site.why.title') }}</h2>
+                    <p class="reveal mt-4 max-w-md text-base leading-8 text-white/85">{{ __('site.why.lead') }}</p>
                 </div>
                 <div class="reveal relative z-10 mt-10" style="transition-delay: 100ms">
                     <div class="why-photo-frame">
-                        <img src="{{ asset('image/why/team-why.jpg') }}" alt="فريق عمل محترف في المواثيق" loading="lazy">
+                        <img src="{{ asset('image/why/team-why.jpg') }}" alt="{{ __('site.goals.team_alt') }}" loading="lazy">
                     </div>
                 </div>
             </div>
             <div class="why-panel-light relative flex flex-col justify-center px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
                 <ul class="relative z-10 space-y-4">
                     @forelse ($whyPoints as $index => $point)
+                        @php $whyKey = $point->sort_order ?: ($index + 1); @endphp
                         <li class="reveal why-point" style="transition-delay: {{ $index * 70 }}ms">
                             <span class="why-point-dot" aria-hidden="true"></span>
-                            <span class="text-base font-bold leading-8 text-brand sm:text-lg">{{ $point->title }}</span>
+                            <span class="text-base font-bold leading-8 text-brand sm:text-lg">{{ locale_text('site.why.items.'.$whyKey, $point->title) }}</span>
                         </li>
                     @empty
-                        <li class="text-brand/60">أضف نقاط التميز من لوحة التحكم.</li>
+                        <li class="text-brand/60">{{ __('site.why.empty') }}</li>
                     @endforelse
                 </ul>
                 <div class="reveal relative z-10 mt-10">
-                    <a href="{{ route('contact') }}" class="btn-primary">تواصل معنا الآن</a>
+                    <a href="{{ route('contact') }}" class="btn-primary">{{ __('site.cta.contact_now') }}</a>
                 </div>
             </div>
         </div>

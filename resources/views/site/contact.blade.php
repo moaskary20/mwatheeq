@@ -1,13 +1,13 @@
 @extends('layouts.site')
 
-@section('title', 'تواصل معنا — مواثيق')
+@section('title', __('site.nav.contact').' — '.__('site.brand_short'))
 
 @section('content')
     @include('site.partials.page-hero', [
-        'eyebrow' => 'نحن بانتظارك',
-        'title' => 'تواصل معنا',
-        'current' => 'تواصل معنا',
-        'lead' => 'يسعدنا تواصلكم معنا، أرسل استفسارك أو زر مقرنا في الإسكندرية.',
+        'eyebrow' => __('site.contact.eyebrow'),
+        'title' => __('site.contact.title'),
+        'current' => __('site.nav.contact'),
+        'lead' => __('site.contact.lead'),
     ])
 
     @include('site.partials.contact-section', ['showHeading' => false])

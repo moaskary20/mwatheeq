@@ -1,9 +1,9 @@
 <section class="page-hero">
     <div class="page-hero-bg" aria-hidden="true"></div>
     <div class="site-container relative z-10 py-20 sm:py-24">
-        <nav class="reveal text-sm font-bold text-white/70" aria-label="مسار الصفحة">
+        <nav class="reveal text-sm font-bold text-white/70" aria-label="Breadcrumb">
             <ol class="flex flex-wrap items-center gap-2">
-                <li><a class="hover:text-white" href="{{ route('home') }}">الرئيسية</a></li>
+                <li><a class="hover:text-white" href="{{ route('home') }}">{{ __('site.nav.home') }}</a></li>
                 <li aria-hidden="true">/</li>
                 <li class="text-white">{{ $current }}</li>
             </ol>

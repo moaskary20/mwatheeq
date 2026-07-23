@@ -41,6 +41,29 @@
 }
 
 @layer components {
+    .lang-switch {
+        @apply inline-flex h-10 items-center gap-1.5 rounded-xl border border-brand/15 bg-fog px-3 text-xs font-extrabold text-brand transition duration-300 hover:border-brand/35 hover:bg-white;
+    }
+
+    .lang-switch svg {
+        flex-shrink: 0;
+    }
+
+    [dir="ltr"] .hero-nav-prev {
+        right: auto;
+        left: 0.65rem;
+    }
+
+    [dir="ltr"] .hero-nav-next {
+        left: auto;
+        right: 0.65rem;
+    }
+
+    @media (min-width: 640px) {
+        [dir="ltr"] .hero-nav-prev { left: 2rem; right: auto; }
+        [dir="ltr"] .hero-nav-next { right: 2rem; left: auto; }
+    }
+
     .site-preloader {
         position: fixed;
         inset: 0;

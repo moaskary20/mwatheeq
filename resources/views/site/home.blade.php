@@ -1,13 +1,19 @@
 @extends('layouts.site')
 
-@section('title', 'مواثيق — الخدمات الحكومية')
+@section('title', __('site.brand_short').' — '.__('site.nav.services'))
 
 @section('content')
     {{-- 1. Hero Slider --}}
-    <section class="hero-slider relative overflow-hidden bg-brand-deep" data-hero-slider aria-roledescription="carousel" aria-label="سلايدر الصفحة الرئيسية">
+    <section class="hero-slider relative overflow-hidden bg-brand-deep" data-hero-slider aria-roledescription="carousel" aria-label="{{ __('site.hero.aria') }}">
         <div class="hero-frame" aria-hidden="true"></div>
         <div class="hero-stage relative w-full">
             @forelse ($slides as $index => $slide)
+                @php
+                    $slideKey = $slide->sort_order ?: ($index + 1);
+                    $slideTitle = locale_text('site.hero.slides.'.$slideKey.'.title', $slide->title);
+                    $slideSubtitle = locale_text('site.hero.slides.'.$slideKey.'.subtitle', $slide->subtitle);
+                    $slideButton = locale_text('site.hero.slides.'.$slideKey.'.button', $slide->button_text);
+                @endphp
                 <div
                     class="hero-slide absolute inset-0 {{ $index === 0 ? 'is-active' : '' }}"
                     data-slide
@@ -16,7 +22,7 @@
                     <div class="hero-media">
                         <img
                             src="{{ $slide->image_url }}"
-                            alt="{{ $slide->title ?: 'شريحة '.($index + 1) }}"
+                            alt="{{ $slideTitle ?: __('site.brand') }}"
                             class="h-full w-full object-cover"
                             @if ($index === 0) fetchpriority="high" @else loading="lazy" @endif
                         >
@@ -29,39 +35,39 @@
                             <div class="hero-meta">
                                 <div class="hero-badge">
                                     <span class="hero-badge-dot" aria-hidden="true"></span>
-                                    المواثيق للخدمات الحكومية
+                                    {{ __('site.hero.badge') }}
                                 </div>
                                 <span class="hero-index" dir="ltr">{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }} / {{ str_pad((string) $slides->count(), 2, '0', STR_PAD_LEFT) }}</span>
                             </div>
-                            @if ($slide->title)
-                                <h1 class="hero-title">{{ $slide->title }}</h1>
+                            @if ($slideTitle)
+                                <h1 class="hero-title">{{ $slideTitle }}</h1>
                             @endif
-                            @if ($slide->subtitle)
-                                <p class="hero-subtitle">{{ $slide->subtitle }}</p>
+                            @if ($slideSubtitle)
+                                <p class="hero-subtitle">{{ $slideSubtitle }}</p>
                             @endif
                             <div class="hero-actions">
-                                @if ($slide->button_text && $slide->button_url)
+                                @if ($slideButton && $slide->button_url)
                                     <a href="{{ $slide->button_url }}" class="btn-primary bg-white text-brand hover:bg-fog">
-                                        {{ $slide->button_text }}
+                                        {{ $slideButton }}
                                     </a>
                                 @endif
-                                <a href="{{ route('services') }}" class="btn-ghost">استعرض خدماتنا</a>
+                                <a href="{{ route('services') }}" class="btn-ghost">{{ __('site.cta.view_services') }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
             @empty
                 <div class="flex h-full items-center justify-center bg-brand text-white">
-                    <p>أضف صوراً من لوحة التحكم في قسم سلايدر الصور.</p>
+                    <p>{{ __('site.hero.empty') }}</p>
                 </div>
             @endforelse
         </div>
 
         @if ($slides->count() > 1)
-            <button type="button" class="hero-nav hero-nav-prev" data-slider-prev aria-label="الشريحة السابقة">
+            <button type="button" class="hero-nav hero-nav-prev" data-slider-prev aria-label="{{ __('site.hero.prev') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
-            <button type="button" class="hero-nav hero-nav-next" data-slider-next aria-label="الشريحة التالية">
+            <button type="button" class="hero-nav hero-nav-next" data-slider-next aria-label="{{ __('site.hero.next') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
             </button>
 
@@ -72,7 +78,7 @@
                             type="button"
                             class="hero-dot {{ $index === 0 ? 'is-active' : '' }}"
                             data-slider-dot="{{ $index }}"
-                            aria-label="عرض الشريحة {{ $index + 1 }}"
+                            aria-label="{{ __('site.hero.show', ['num' => $index + 1]) }}"
                         >
                             <span class="hero-dot-progress" aria-hidden="true"></span>
                         </button>
@@ -81,9 +87,9 @@
             </div>
         @endif
 
-        <a href="#intro" class="hero-scroll-cue" aria-label="الانتقال للقسم التالي">
+        <a href="#intro" class="hero-scroll-cue" aria-label="{{ __('site.hero.browse') }}">
             <span aria-hidden="true"></span>
-            تصفح
+            {{ __('site.hero.browse') }}
         </a>
     </section>
 
@@ -98,49 +104,41 @@
                 <div class="reveal soft-panel lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none lg:border-0">
                     <div class="heading-stack">
                         <span class="heading-watermark" aria-hidden="true">مواثيق</span>
-                        <p class="section-eyebrow">تعرف علينا</p>
-                        <h2 class="section-title">شريككم الموثوق لإنجاز معاملات الجهات الحكومية</h2>
+                        <p class="section-eyebrow">{{ __('site.intro.eyebrow') }}</p>
+                        <h2 class="section-title">{{ __('site.intro.title') }}</h2>
                     </div>
 
                     <div class="mt-6 space-y-5 text-base leading-9 text-brand/80 sm:text-lg sm:leading-9">
-                        <p>
-                            نوفر حلولًا متكاملة لإنجاز جميع المعاملات والإجراءات الحكومية بكفاءة واحترافية، من خلال فريق متخصص يمتلك خبرة واسعة في التعامل مع مختلف الجهات الحكومية، بما في ذلك الشهر العقاري، ودواوين المحافظات، والأحياء، وهيئة المساحة المصرية، وغيرها من الجهات ذات الصلة.
-                        </p>
-                        <p>
-                            نتولى تنفيذ جميع الإجراءات اللازمة لتسجيل الأراضي والعقارات، واستخراج التراخيص، وإنهاء معاملات تأسيس الشركات وتعديلها، مع الالتزام الكامل بالأنظمة واللوائح القانونية المعمول بها.
-                        </p>
-                        <p>
-                            نعمل على تبسيط الإجراءات وتسريع دورة العمل، بما يضمن توفير الوقت والجهد، وتحقيق أعلى مستويات الدقة والموثوقية في إنجاز معاملاتكم.
-                        </p>
-                        <p class="font-bold text-brand">
-                            خبرتنا... تضمن لكم إنجازًا أسرع، وإجراءات أكثر سلاسة، وخدمة احترافية يمكنكم الاعتماد عليه.
-                        </p>
+                        <p>{{ __('site.intro.p1') }}</p>
+                        <p>{{ __('site.intro.p2') }}</p>
+                        <p>{{ __('site.intro.p3') }}</p>
+                        <p class="font-bold text-brand">{{ __('site.intro.p4') }}</p>
                     </div>
 
                     <div class="mt-8 flex flex-wrap gap-2.5">
-                        @foreach (['الشهر العقاري', 'ديوان المحافظات', 'ديوان الأحياء', 'الدفاع المدني', 'تراخيص الشركات'] as $tag)
+                        @foreach (__('site.intro.tags') as $tag)
                             <span class="intro-chip">{{ $tag }}</span>
                         @endforeach
                     </div>
 
                     <div class="trust-strip reveal" style="transition-delay: 140ms">
                         <div class="trust-item">
-                            <strong>خبرة</strong>
-                            <span>متخصصون حكوميون</span>
+                            <strong>{{ __('site.intro.trust_exp') }}</strong>
+                            <span>{{ __('site.intro.trust_exp_sub') }}</span>
                         </div>
                         <div class="trust-item">
-                            <strong>سرعة</strong>
-                            <span>إنجاز في أقصر وقت</span>
+                            <strong>{{ __('site.intro.trust_speed') }}</strong>
+                            <span>{{ __('site.intro.trust_speed_sub') }}</span>
                         </div>
                         <div class="trust-item">
-                            <strong>التزام</strong>
-                            <span>إطار قانوني واضح</span>
+                            <strong>{{ __('site.intro.trust_commit') }}</strong>
+                            <span>{{ __('site.intro.trust_commit_sub') }}</span>
                         </div>
                     </div>
 
                     <div class="intro-actions">
-                        <a href="{{ route('services') }}" class="btn-primary">استعرض خدماتنا</a>
-                        <a href="{{ route('contact') }}" class="btn-outline">تواصل معنا</a>
+                        <a href="{{ route('services') }}" class="btn-primary">{{ __('site.cta.view_services') }}</a>
+                        <a href="{{ route('contact') }}" class="btn-outline">{{ __('site.cta.contact_us') }}</a>
                     </div>
                 </div>
 
@@ -160,8 +158,8 @@
                             </svg>
                         </span>
                         <div>
-                            <p class="text-xs font-bold text-white/70">نهج قانوني متكامل</p>
-                            <p class="mt-0.5 text-sm font-extrabold text-white">دقة · سرعة · التزام</p>
+                            <p class="text-xs font-bold text-white/70">{{ __('site.intro.float_label') }}</p>
+                            <p class="mt-0.5 text-sm font-extrabold text-white">{{ __('site.intro.float_value') }}</p>
                         </div>
                     </div>
                 </div>
@@ -178,13 +176,13 @@
             <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div class="heading-stack">
                     <span class="heading-watermark" aria-hidden="true">خدمات</span>
-                    <p class="section-eyebrow">خدماتنا</p>
-                    <h2 class="section-title">الخدمات الحكومية</h2>
+                    <p class="section-eyebrow">{{ __('site.services.eyebrow') }}</p>
+                    <h2 class="section-title">{{ __('site.services.title') }}</h2>
                     <p class="section-lead">
-                        حلول متكاملة تسهّل إجراءاتكم الحكومية بكفاءة ووضوح واحترافية عالية.
+                        {{ __('site.services.lead') }}
                     </p>
                 </div>
-                <a href="{{ route('contact') }}" class="btn-service shrink-0 self-start">اطلب خدمة الآن</a>
+                <a href="{{ route('contact') }}" class="btn-service shrink-0 self-start">{{ __('site.cta.request_service') }}</a>
             </div>
 
             <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -198,13 +196,13 @@
                             @endif
                             <div class="service-card-overlay"></div>
                             <div class="service-card-body">
-                                <h3 class="text-2xl font-extrabold">{{ $service->title }}</h3>
-                                <p class="mt-3 text-sm leading-7 text-white/85">{{ $service->summary }}</p>
+                                <h3 class="text-2xl font-extrabold">{{ locale_text('site.services.items.'.$service->slug.'.title', $service->title) }}</h3>
+                                <p class="mt-3 text-sm leading-7 text-white/85">{{ locale_text('site.services.items.'.$service->slug.'.summary', $service->summary) }}</p>
                             </div>
                         </div>
                     </article>
                 @empty
-                    <p class="text-brand/60">لا توجد خدمات منشورة حالياً.</p>
+                    <p class="text-brand/60">{{ __('site.services.empty') }}</p>
                 @endforelse
             </div>
         </div>
@@ -223,19 +221,20 @@
                     <div class="reveal heading-stack">
                         <span class="heading-watermark" aria-hidden="true">أهداف</span>
                         <div class="flex items-center gap-3">
-                            <p class="section-eyebrow">رؤيتنا العملية</p>
+                            <p class="section-eyebrow">{{ __('site.goals.eyebrow') }}</p>
                             <div class="goal-accent-bars" aria-hidden="true">
                                 <span></span><span></span><span></span><span></span>
                             </div>
                         </div>
-                        <h2 class="section-title">أهدافنا</h2>
+                        <h2 class="section-title">{{ __('site.goals.title') }}</h2>
                         <p class="section-lead">
-                            {{ $settings['goals_subtitle'] ?? 'نحن ملتزمون بتحقيق أهدافنا من خلال فريق عمل محترف وملتزم.' }}
+                            {{ locale_text('site.goals.subtitle', $settings['goals_subtitle'] ?? null) }}
                         </p>
                     </div>
 
                     <div class="goals-grid mt-11">
                         @forelse ($goals as $index => $goal)
+                            @php $goalKey = $goal->sort_order ?: ($index + 1); @endphp
                             <article class="reveal goal-card goal-card--{{ ($index % 4) + 1 }}" style="transition-delay: {{ $index * 100 }}ms">
                                 <div class="goal-card-top">
                                     <span class="goal-number" aria-hidden="true">{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}</span>
@@ -245,19 +244,19 @@
                                                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
                                             </svg>
                                         </span>
-                                        <h3>{{ $goal->title }}</h3>
+                                        <h3>{{ locale_text('site.goals.items.'.$goalKey.'.title', $goal->title) }}</h3>
                                     </div>
                                 </div>
-                                <p class="goal-card-text">{{ $goal->summary }}</p>
+                                <p class="goal-card-text">{{ locale_text('site.goals.items.'.$goalKey.'.summary', $goal->summary) }}</p>
                                 <span class="goal-card-glow" aria-hidden="true"></span>
                             </article>
                         @empty
-                            <p class="text-brand/60">لا توجد أهداف منشورة حالياً.</p>
+                            <p class="text-brand/60">{{ __('site.goals.empty') }}</p>
                         @endforelse
                     </div>
 
                     <div class="reveal mt-10" style="transition-delay: 220ms">
-                        <a href="{{ route('contact') }}" class="btn-primary">ابدأ تحقيق هدفك معنا</a>
+                        <a href="{{ route('contact') }}" class="btn-primary">{{ __('site.cta.start_goal') }}</a>
                     </div>
                 </div>
 
@@ -268,7 +267,7 @@
                         <span class="goals-accent-block" aria-hidden="true"></span>
 
                         <div class="photo-blob photo-blob-lg goals-photo">
-                            <img src="{{ asset('image/goals/team.jpg') }}" alt="فريق عمل محترف" loading="lazy">
+                            <img src="{{ asset('image/goals/team.jpg') }}" alt="{{ __('site.goals.team_alt') }}" loading="lazy">
                         </div>
 
                         <div class="goals-float-card">
@@ -279,14 +278,14 @@
                                 </svg>
                             </span>
                             <div>
-                                <p class="text-xs font-bold text-white/70">فريق متخصص</p>
-                                <p class="mt-0.5 text-sm font-extrabold text-white">خبرة حكومية موثوقة</p>
+                                <p class="text-xs font-bold text-white/70">{{ __('site.goals.float_label') }}</p>
+                                <p class="mt-0.5 text-sm font-extrabold text-white">{{ __('site.goals.float') }}</p>
                             </div>
                         </div>
 
                         <div class="goals-stat-chip">
                             <strong>{{ $goals->count() ?: 4 }}+</strong>
-                            <span>أهداف استراتيجية</span>
+                            <span>{{ __('site.goals.stat_label') }}</span>
                         </div>
                     </div>
                 </div>
@@ -302,12 +301,12 @@
                 <div class="why-panel-glow" aria-hidden="true"></div>
 
                 <div class="relative z-10">
-                    <p class="reveal text-sm font-bold tracking-[0.2em] text-white/75">تميّزنا</p>
+                    <p class="reveal text-sm font-bold tracking-[0.2em] text-white/75">{{ __('site.why.eyebrow') }}</p>
                     <h2 class="reveal mt-3 text-4xl font-extrabold leading-snug sm:text-5xl lg:text-[3.4rem]">
-                        لماذا تختارنا؟
+                        {{ __('site.why.title') }}
                     </h2>
                     <p class="reveal mt-4 max-w-md text-base leading-8 text-white/85">
-                        نجمع بين الخبرة الميدانية والدقة الإدارية لنقدّم تجربة سلسة ونتائج موثوقة.
+                        {{ __('site.why.lead') }}
                     </p>
                 </div>
 
@@ -326,7 +325,7 @@
                             </svg>
                         </span>
                         <div>
-                            <p class="text-xs text-white/70">الموقع</p>
+                            <p class="text-xs text-white/70">{{ __('site.why.location') }}</p>
                             <a href="https://{{ ltrim($settings['website_url'] ?? 'mwatheeq.com', '/') }}" class="text-base font-bold hover:underline" target="_blank" rel="noopener">
                                 {{ $settings['website_url'] ?? 'mwatheeq.com' }}
                             </a>
@@ -338,7 +337,7 @@
             <div class="why-panel-light relative flex flex-col justify-center px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
                 <span class="orbit orbit-c opacity-60" aria-hidden="true"></span>
                 <div class="reveal relative z-10 mb-8 flex items-center gap-3">
-                    <img src="{{ asset('image/logo.png') }}" alt="المواثيق للخدمات الحكومية" class="h-14 w-auto object-contain sm:h-16">
+                    <img src="{{ asset('image/logo.png') }}" alt="{{ __('site.brand') }}" class="h-14 w-auto object-contain sm:h-16">
                 </div>
 
                 <div class="goal-accent-bars mb-7" aria-hidden="true">
@@ -347,17 +346,18 @@
 
                 <ul class="relative z-10 space-y-4">
                     @forelse ($whyPoints as $index => $point)
+                        @php $whyKey = $point->sort_order ?: ($index + 1); @endphp
                         <li class="reveal why-point" style="transition-delay: {{ $index * 70 }}ms">
                             <span class="why-point-dot" aria-hidden="true"></span>
-                            <span class="text-base font-bold leading-8 text-brand sm:text-lg">{{ $point->title }}</span>
+                            <span class="text-base font-bold leading-8 text-brand sm:text-lg">{{ locale_text('site.why.items.'.$whyKey, $point->title) }}</span>
                         </li>
                     @empty
-                        <li class="text-brand/60">أضف نقاط التميز من لوحة التحكم.</li>
+                        <li class="text-brand/60">{{ __('site.why.empty') }}</li>
                     @endforelse
                 </ul>
 
                 <div class="reveal relative z-10 mt-10">
-                    <a href="{{ route('contact') }}" class="btn-primary">تواصل معنا الآن</a>
+                    <a href="{{ route('contact') }}" class="btn-primary">{{ __('site.cta.contact_now') }}</a>
                 </div>
             </div>
         </div>
@@ -371,19 +371,19 @@
             <div class="reveal order-2 lg:order-1">
                 <div class="heading-stack">
                     <span class="heading-watermark" aria-hidden="true">نحن</span>
-                    <p class="section-eyebrow">{{ $settings['about_title'] ?: 'من نحن' }}</p>
-                    <h2 class="section-title">شريك موثوق في الخدمات الحكومية</h2>
+                    <p class="section-eyebrow">{{ locale_text('site.home_extra.about_title', $settings['about_title'] ?: null) }}</p>
+                    <h2 class="section-title">{{ __('site.home_extra.about_block_title') }}</h2>
                 </div>
-                <p class="section-lead">{{ $settings['about_body'] }}</p>
+                <p class="section-lead">{{ locale_text('site.home_extra.about_block_lead', $settings['about_body'] ?? null) }}</p>
 
                 <div class="mt-8 grid gap-4 sm:grid-cols-2">
                     <div class="brand-panel">
-                        <h3 class="relative z-10 text-sm font-bold text-white/80">رؤيتنا</h3>
-                        <p class="relative z-10 mt-3 text-base leading-8 text-white/95">{{ $settings['vision'] }}</p>
+                        <h3 class="relative z-10 text-sm font-bold text-white/80">{{ __('site.home_extra.vision') }}</h3>
+                        <p class="relative z-10 mt-3 text-base leading-8 text-white/95">{{ locale_text('site.home_extra.vision_text', $settings['vision'] ?? null) }}</p>
                     </div>
                     <div class="mission-panel">
-                        <h3 class="text-sm font-extrabold text-brand">رسالتنا</h3>
-                        <p class="mt-3 text-base leading-8 text-brand/80">{{ $settings['mission'] }}</p>
+                        <h3 class="text-sm font-extrabold text-brand">{{ __('site.home_extra.mission') }}</h3>
+                        <p class="mt-3 text-base leading-8 text-brand/80">{{ locale_text('site.home_extra.mission_text', $settings['mission'] ?? null) }}</p>
                     </div>
                 </div>
             </div>
@@ -404,10 +404,10 @@
         <div class="site-container">
             <div class="reveal text-center heading-stack mx-auto max-w-3xl">
                 <span class="heading-watermark left-1/2 -translate-x-1/2" aria-hidden="true">شركاء</span>
-                <p class="section-eyebrow mx-auto justify-center">ثقة المصانع والشركات</p>
-                <h2 class="section-title section-title-center">عملاؤنا</h2>
+                <p class="section-eyebrow mx-auto justify-center">{{ __('site.clients.eyebrow') }}</p>
+                <h2 class="section-title section-title-center">{{ __('site.clients.title') }}</h2>
                 <p class="section-lead mx-auto">
-                    نفتخر بشراكتنا مع مجموعة من المصانع والشركات الرائدة، ونقدّم لهم حلولًا حكومية موثوقة تسرّع الإنجاز وتحفظ الجودة.
+                    {{ __('site.clients.lead') }}
                 </p>
             </div>
         </div>
@@ -441,15 +441,15 @@
             <div class="reveal clients-trustbar">
                 <div class="clients-trust-item">
                     <strong>{{ count($clients) }}+</strong>
-                    <span>مصنع وشركة</span>
+                    <span>{{ __('site.clients.count_label') }}</span>
                 </div>
                 <div class="clients-trust-item">
-                    <strong>قطاعات متعددة</strong>
-                    <span>تجارة · إنشاء · بنوك</span>
+                    <strong>{{ __('site.clients.sectors') }}</strong>
+                    <span>{{ __('site.clients.sectors_sub') }}</span>
                 </div>
                 <div class="clients-trust-item">
-                    <strong>شراكة مستمرة</strong>
-                    <span>متابعة وإنجاز حكومي</span>
+                    <strong>{{ __('site.clients.partnership') }}</strong>
+                    <span>{{ __('site.clients.partnership_sub') }}</span>
                 </div>
             </div>
         </div>
@@ -463,16 +463,16 @@
         <div class="site-container relative z-10">
             <div class="partners-intro reveal">
                 <div>
-                    <p class="section-eyebrow">شبكة تعامل حكومي</p>
-                    <h2 class="section-title">الجهات المتعامل معها</h2>
+                    <p class="section-eyebrow">{{ __('site.partners.eyebrow') }}</p>
+                    <h2 class="section-title">{{ __('site.partners.title') }}</h2>
                     <p class="section-lead">
-                        خريطة الجهات والهيئات التي نتعامل معها يوميًا لإنجاز معاملاتكم بمسار واضح وموثوق.
+                        {{ __('site.partners.lead') }}
                     </p>
                 </div>
                 <div class="partners-intro-seal" aria-hidden="true">
                     <span class="partners-intro-seal-ring"></span>
                     <strong>{{ count($partners) }}</strong>
-                    <small>جهة وهيئة</small>
+                    <small>{{ __('site.partners.seal') }}</small>
                 </div>
             </div>
 
@@ -498,7 +498,7 @@
                                 @include('site.partials.partner-icon', ['icon' => $icon])
                             </span>
                             <div class="partner-node-body">
-                                <span class="partner-node-label">جهة معتمدة</span>
+                                <span class="partner-node-label">{{ __('site.partners.label') }}</span>
                                 <h3>{{ $name }}</h3>
                             </div>
                         </article>

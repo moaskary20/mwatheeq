@@ -98,7 +98,7 @@ class HomeController extends Controller
             'email' => '',
             'address' => '',
             'address_en' => '',
-            'map_query' => '9 Dr. Burji Street, next to Al Ahly Specialized Hospital, Kafr Abdo, Alexandria',
+            'map_query' => '41 Tutankhamun Street, Smouha, Al Jawhara Building, Alexandria',
             'whatsapp' => '',
             'facebook_url' => '',
             'instagram_url' => '',
@@ -118,7 +118,7 @@ class HomeController extends Controller
 
         return [
             'mapQuery' => $mapQuery,
-            'mapEmbedUrl' => 'https://www.google.com/maps?q='.rawurlencode($mapQuery).'&hl=ar&z=16&output=embed',
+            'mapEmbedUrl' => 'https://www.google.com/maps?q='.rawurlencode($mapQuery).'&hl='.app()->getLocale().'&z=16&output=embed',
             'mapSearchUrl' => 'https://www.google.com/maps/search/?api=1&query='.rawurlencode($mapQuery),
         ];
     }
@@ -129,13 +129,13 @@ class HomeController extends Controller
     protected function clients(): array
     {
         return [
-            ['name' => 'شركة الصفاء للاستيراد والتصدير (للمولدات)', 'logo' => 'image/clients/al-safa.svg'],
-            ['name' => 'شركة الوادي لتصدير الحاصلات الزراعية', 'logo' => 'image/clients/al-wadi.svg'],
-            ['name' => 'شركة الحياة للإنشاء والتعمير', 'logo' => 'image/clients/al-hayat.svg'],
-            ['name' => 'شركة البركة لقطاع غيار سيارات النقل الثقيل', 'logo' => 'image/clients/al-baraka-parts.svg'],
-            ['name' => 'الجمعية التعاونية للبناء والإسكان للعاملين بشركة النصر للأصواف والمنسوجات الممتازة (ستيا)', 'logo' => 'image/clients/setia-coop.svg'],
-            ['name' => 'بنك البركة مصر', 'logo' => 'image/clients/al-baraka-bank.svg'],
-            ['name' => 'شركة حلوان للحديد والصلب', 'logo' => 'image/clients/helwan-steel.svg'],
+            ['name' => __('site.clients.items.al-safa'), 'logo' => 'image/clients/al-safa.svg'],
+            ['name' => __('site.clients.items.al-wadi'), 'logo' => 'image/clients/al-wadi.svg'],
+            ['name' => __('site.clients.items.al-hayat'), 'logo' => 'image/clients/al-hayat.svg'],
+            ['name' => __('site.clients.items.al-baraka-parts'), 'logo' => 'image/clients/al-baraka-parts.svg'],
+            ['name' => __('site.clients.items.setia-coop'), 'logo' => 'image/clients/setia-coop.svg'],
+            ['name' => __('site.clients.items.al-baraka-bank'), 'logo' => 'image/clients/al-baraka-bank.svg'],
+            ['name' => __('site.clients.items.helwan-steel'), 'logo' => 'image/clients/helwan-steel.svg'],
         ];
     }
 
@@ -145,17 +145,17 @@ class HomeController extends Controller
     protected function partners(): array
     {
         return [
-            ['name' => 'مأموريات الشهر العقاري', 'icon' => 'registry'],
-            ['name' => 'هيئة المساحة المصرية', 'icon' => 'survey'],
-            ['name' => 'هيئة الطيران المدني', 'icon' => 'aviation'],
-            ['name' => 'هيئة الآثار', 'icon' => 'antiquities'],
-            ['name' => 'هيئة المياه وهيئة الصرف الصحي', 'icon' => 'water'],
-            ['name' => 'هيئة الاستثمار', 'icon' => 'investment'],
-            ['name' => 'هيئة الاتصالات', 'icon' => 'telecom'],
-            ['name' => 'هيئة المجتمعات العمرانية', 'icon' => 'urban'],
-            ['name' => 'جهاز مدينة برج العرب', 'icon' => 'city'],
-            ['name' => 'جهاز مدينة ٦ أكتوبر', 'icon' => 'city-oct'],
-            ['name' => 'وجميع الهيئات والمؤسسات الحكومية الأخرى', 'icon' => 'government'],
+            ['name' => __('site.partners.items.registry'), 'icon' => 'registry'],
+            ['name' => __('site.partners.items.survey'), 'icon' => 'survey'],
+            ['name' => __('site.partners.items.aviation'), 'icon' => 'aviation'],
+            ['name' => __('site.partners.items.antiquities'), 'icon' => 'antiquities'],
+            ['name' => __('site.partners.items.water'), 'icon' => 'water'],
+            ['name' => __('site.partners.items.investment'), 'icon' => 'investment'],
+            ['name' => __('site.partners.items.telecom'), 'icon' => 'telecom'],
+            ['name' => __('site.partners.items.urban'), 'icon' => 'urban'],
+            ['name' => __('site.partners.items.city'), 'icon' => 'city'],
+            ['name' => __('site.partners.items.city-oct'), 'icon' => 'city-oct'],
+            ['name' => __('site.partners.items.government'), 'icon' => 'government'],
         ];
     }
 }
