@@ -265,6 +265,31 @@ return [
         'open_maps' => 'Open in Google Maps',
     ],
 
+    'service_request' => [
+        'title' => 'Request a service',
+        'lead' => 'Fill in your details and we will contact you shortly.',
+        'name' => 'Name',
+        'name_ph' => 'Your full name',
+        'phone' => 'Phone number',
+        'phone_ph' => '01xxxxxxxx',
+        'email' => 'Email',
+        'email_ph' => 'name@example.com',
+        'service' => 'Service',
+        'service_ph' => 'Select a service',
+        'submit' => 'Submit request',
+        'submitting' => 'Sending...',
+        'close' => 'Close',
+        'success' => 'Your request was sent successfully. We will contact you soon.',
+        'error' => 'Could not send the request. Please try again.',
+        'errors' => [
+            'name' => 'Please enter your name.',
+            'phone' => 'Please enter your phone number.',
+            'email' => 'Please enter your email.',
+            'email_invalid' => 'The email address is invalid.',
+            'service' => 'Please select a service.',
+        ],
+    ],
+
     'about_page' => [
         'vision_title' => 'Our vision & mission',
         'vision' => 'Our vision',

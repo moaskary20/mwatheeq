@@ -46,7 +46,7 @@ return new class extends Migration
                 'summary' => 'استخراج الموافقات العسكرية المطلوبة للمعاملات والمشاريع.',
                 'description' => '<p>ننجز إجراءات استخراج الموافقات العسكرية المرتبطة بالمعاملات والمشاريع وفق المسارات النظامية المعتمدة.</p>',
                 'icon' => 'heroicon-o-shield-check',
-                'image' => 'image/services/factory.jpg',
+                'image' => 'image/0002.jpeg',
                 'sort_order' => 4,
             ],
             [
@@ -73,7 +73,7 @@ return new class extends Migration
                 'summary' => 'تراخيص المصانع وحلول قانونية متكاملة للشركات والمنشآت.',
                 'description' => '<p>نقدّم خدمات تراخيص المصانع والحلول القانونية المتكاملة للشركات بما يضمن الامتثال وسرعة الإنجاز.</p>',
                 'icon' => 'heroicon-o-cog-6-tooth',
-                'image' => 'image/services/factory.jpg',
+                'image' => 'image/123123.jpg',
                 'sort_order' => 7,
             ],
             [

@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\ServiceRequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/locale/{locale}', [LocaleController::class, 'switch'])
@@ -17,6 +18,7 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/contact', [HomeController::class, 'contactPage'])->name('contact');
 Route::post('/contact', [HomeController::class, 'contact'])->name('contact.store');
+Route::post('/service-requests', [ServiceRequestController::class, 'store'])->name('service-requests.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

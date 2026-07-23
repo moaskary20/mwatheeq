@@ -1824,7 +1824,7 @@
 
     /* Services */
     .service-card {
-        @apply relative overflow-hidden rounded-3xl bg-brand shadow-[0_18px_50px_rgba(49,84,173,0.18)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_28px_60px_rgba(49,84,173,0.28)];
+        @apply relative cursor-pointer overflow-hidden rounded-3xl bg-brand shadow-[0_18px_50px_rgba(49,84,173,0.18)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_28px_60px_rgba(49,84,173,0.28)];
     }
 
     .service-card::before {
@@ -1860,6 +1860,116 @@
 
     .service-card-body {
         @apply absolute inset-x-0 bottom-0 z-[1] p-6 text-white sm:p-7;
+    }
+
+    /* Service request modal */
+    .service-request-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 70;
+        background: rgba(16, 28, 64, 0.5);
+        backdrop-filter: blur(3px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.28s ease, visibility 0.28s ease;
+    }
+
+    .service-request-overlay.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .service-request-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 75;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.28s ease, visibility 0.28s ease;
+    }
+
+    .service-request-modal.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .service-request-dialog {
+        width: min(100%, 28rem);
+        max-height: min(92vh, 40rem);
+        overflow-y: auto;
+        border-radius: 1.5rem;
+        background: #fff;
+        box-shadow: 0 28px 70px rgba(28, 50, 112, 0.28);
+        padding: 1.35rem 1.35rem 1.5rem;
+        transform: translateY(12px) scale(0.98);
+        transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .service-request-modal.is-open .service-request-dialog {
+        transform: translateY(0) scale(1);
+    }
+
+    .service-request-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.15rem;
+    }
+
+    .service-request-title {
+        @apply text-xl font-extrabold text-brand;
+    }
+
+    .service-request-lead {
+        @apply mt-1 text-sm leading-7 text-brand/65;
+    }
+
+    .service-request-close {
+        @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-brand/15 bg-fog text-brand transition hover:border-brand/35 hover:bg-white;
+    }
+
+    .service-request-form {
+        display: grid;
+        gap: 0.9rem;
+    }
+
+    .service-request-submit {
+        width: 100%;
+        margin-top: 0.25rem;
+    }
+
+    .service-request-submit:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .service-request-alert {
+        @apply mb-3 rounded-xl border px-4 py-3 text-sm font-bold;
+    }
+
+    .service-request-alert.is-success {
+        @apply border-brand/30 bg-fog text-brand;
+    }
+
+    .service-request-alert.is-error {
+        border-color: rgba(220, 38, 38, 0.25);
+        background: rgba(254, 242, 242, 0.95);
+        color: #b91c1c;
+    }
+
+    .service-request-field-error {
+        @apply mt-1 text-xs text-red-600;
+    }
+
+    body.service-request-open {
+        overflow: hidden;
     }
 
     /* Goals */

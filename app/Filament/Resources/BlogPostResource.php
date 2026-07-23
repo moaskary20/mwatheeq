@@ -27,7 +27,7 @@ class BlogPostResource extends Resource
 
     protected static ?string $navigationGroup = 'الموقع';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {

@@ -187,7 +187,15 @@
 
             <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 @forelse ($services as $index => $service)
-                    <article class="reveal-scale service-card" style="transition-delay: {{ $index * 90 }}ms">
+                    <article
+                        class="reveal-scale service-card"
+                        style="transition-delay: {{ $index * 90 }}ms"
+                        role="button"
+                        tabindex="0"
+                        data-service-request-open
+                        data-service-id="{{ $service->id }}"
+                        aria-label="{{ __('site.service_request.title') }}: {{ locale_text('site.services.items.'.$service->slug.'.title', $service->title) }}"
+                    >
                         <div class="service-card-media">
                             @if ($service->image_url)
                                 <img src="{{ $service->image_url }}" alt="{{ $service->title }}" loading="lazy">

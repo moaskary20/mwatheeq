@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="{{ $settings['hero_subtitle'] ?? __('site.brand') }}">
     <title>@yield('title', __('site.brand_short'))</title>
 
@@ -188,5 +189,7 @@
             <span class="whatsapp-float-label">{{ __('site.whatsapp') }}</span>
         </a>
     @endif
+
+    @include('site.partials.service-request-modal')
 </body>
 </html>
