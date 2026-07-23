@@ -42,11 +42,25 @@
 
 @layer components {
     .lang-switch {
-        @apply inline-flex h-10 items-center gap-1.5 rounded-xl border border-brand/15 bg-fog px-3 text-xs font-extrabold text-brand transition duration-300 hover:border-brand/35 hover:bg-white;
+        @apply inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-brand/15 bg-fog px-3 text-xs font-extrabold text-brand transition duration-300 hover:border-brand/35 hover:bg-white;
+        line-height: 0;
     }
 
     .lang-switch svg {
+        display: block;
         flex-shrink: 0;
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .lang-switch span {
+        display: inline-flex;
+        height: 1.25rem;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.25rem;
+        /* optical centering for bold uppercase glyphs vs the globe stroke */
+        transform: translateY(1px);
     }
 
     [dir="ltr"] .hero-nav-prev {

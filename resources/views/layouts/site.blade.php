@@ -35,12 +35,12 @@
         data-site-header
         class="site-header fixed inset-x-0 top-0 z-50 border-b border-brand/10 bg-white/85 shadow-[0_8px_30px_rgba(49,84,173,0.08)] backdrop-blur-md"
     >
-        <div class="site-container flex h-16 items-center justify-between sm:h-[4.75rem]">
-            <a href="{{ route('home') }}" class="group flex shrink-0 items-center" aria-label="{{ __('site.back_home') }}">
+        <div class="site-container flex h-16 items-center justify-between gap-2 sm:h-[4.75rem] sm:gap-3">
+            <a href="{{ route('home') }}" class="group flex min-w-0 shrink items-center md:shrink-0" aria-label="{{ __('site.back_home') }}">
                 <img
                     src="{{ asset('image/logo.png') }}"
                     alt="{{ __('site.brand') }}"
-                    class="h-11 w-auto object-contain transition duration-300 group-hover:scale-[1.03] sm:h-14"
+                    class="h-11 w-auto max-w-full object-contain transition duration-300 group-hover:scale-[1.03] sm:h-14"
                     width="200"
                     height="56"
                 >
@@ -55,11 +55,12 @@
                 <a class="nav-link {{ request()->routeIs('contact') ? 'is-active' : '' }}" href="{{ route('contact') }}">{{ __('site.nav.contact') }}</a>
             </nav>
 
-            <div class="flex items-center gap-2 sm:gap-3">
+            {{-- Mobile: contents makes lang + menu header siblings so justify-between spaces them equally around the logo --}}
+            <div class="contents md:flex md:items-center md:gap-3">
                 @php $nextLocale = is_arabic() ? 'en' : 'ar'; @endphp
                 <a
                     href="{{ route('locale.switch', $nextLocale) }}"
-                    class="lang-switch"
+                    class="lang-switch shrink-0"
                     aria-label="{{ __('site.switch_language') }}"
                     title="{{ is_arabic() ? __('site.switch_to_en') : __('site.switch_to_ar') }}"
                 >
@@ -76,7 +77,7 @@
                     data-menu-toggle
                     data-label-open="{{ __('site.open_menu') }}"
                     data-label-close="{{ __('site.close_menu') }}"
-                    class="menu-toggle inline-flex h-10 w-10 items-center justify-center rounded-xl border border-brand/15 bg-fog text-brand md:hidden"
+                    class="menu-toggle inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-brand/15 bg-fog text-brand md:hidden"
                     aria-expanded="false"
                     aria-controls="mobile-menu"
                     aria-label="{{ __('site.open_menu') }}"
