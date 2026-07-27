@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\ContactMessage;
 use App\Models\Goal;
+use App\Models\Partner;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Slide;
@@ -25,8 +27,8 @@ class HomeController extends Controller
             'slides' => Slide::query()->published()->get(),
             'goals' => Goal::query()->published()->get(),
             'whyPoints' => WhyPoint::query()->published()->get(),
-            'clients' => $this->clients(),
-            'partners' => $this->partners(),
+            'clients' => Client::query()->published()->get(),
+            'partners' => Partner::query()->published()->get(),
         ]));
     }
 
@@ -100,11 +102,60 @@ class HomeController extends Controller
             'address_en' => '',
             'map_query' => '41 Tutankhamun Street, Smouha, Al Jawhara Building, Alexandria',
             'whatsapp' => '',
+            'whatsapp_display' => '01272269000',
             'facebook_url' => '',
             'instagram_url' => '',
             'footer_text' => '',
+            'footer_designed_by' => '',
+            'footer_designer_name' => 'Caesar Agency',
+            'preloader_welcome' => '',
             'goals_subtitle' => 'نحن ملتزمون بتحقيق أهدافنا من خلال فريق عمل محترف وملتزم.',
             'website_url' => 'mwatheeq.com',
+            'intro_eyebrow' => '',
+            'intro_title' => '',
+            'intro_p1' => '',
+            'intro_p2' => '',
+            'intro_p3' => '',
+            'intro_p4' => '',
+            'intro_float_label' => '',
+            'intro_float_value' => '',
+            'intro_trust_exp' => '',
+            'intro_trust_exp_sub' => '',
+            'intro_trust_speed' => '',
+            'intro_trust_speed_sub' => '',
+            'intro_trust_commit' => '',
+            'intro_trust_commit_sub' => '',
+            'intro_tags' => '',
+            'intro_image' => 'image/sections/intro.jpg',
+            'services_eyebrow' => '',
+            'services_title' => '',
+            'services_lead' => '',
+            'goals_eyebrow' => '',
+            'goals_title' => '',
+            'why_eyebrow' => '',
+            'why_title' => '',
+            'why_lead' => '',
+            'clients_eyebrow' => '',
+            'clients_title' => '',
+            'clients_lead' => '',
+            'clients_count_label' => '',
+            'clients_sectors' => '',
+            'clients_sectors_sub' => '',
+            'clients_partnership' => '',
+            'clients_partnership_sub' => '',
+            'partners_eyebrow' => '',
+            'partners_title' => '',
+            'partners_lead' => '',
+            'partners_seal' => '',
+            'partners_label' => '',
+            'contact_eyebrow' => '',
+            'contact_title' => '',
+            'contact_lead' => '',
+            'cta_consult' => '',
+            'cta_view_services' => '',
+            'cta_contact_us' => '',
+            'cta_contact_now' => '',
+            'cta_request_service' => '',
         ]);
     }
 
@@ -120,42 +171,6 @@ class HomeController extends Controller
             'mapQuery' => $mapQuery,
             'mapEmbedUrl' => 'https://www.google.com/maps?q='.rawurlencode($mapQuery).'&hl='.app()->getLocale().'&z=16&output=embed',
             'mapSearchUrl' => 'https://www.google.com/maps/search/?api=1&query='.rawurlencode($mapQuery),
-        ];
-    }
-
-    /**
-     * @return list<array{name: string, logo: string}>
-     */
-    protected function clients(): array
-    {
-        return [
-            ['name' => __('site.clients.items.al-safa'), 'logo' => 'image/clients/al-safa.svg'],
-            ['name' => __('site.clients.items.al-wadi'), 'logo' => 'image/clients/al-wadi.svg'],
-            ['name' => __('site.clients.items.al-hayat'), 'logo' => 'image/clients/al-hayat.svg'],
-            ['name' => __('site.clients.items.al-baraka-parts'), 'logo' => 'image/clients/al-baraka-parts.svg'],
-            ['name' => __('site.clients.items.setia-coop'), 'logo' => 'image/clients/setia-coop.svg'],
-            ['name' => __('site.clients.items.al-baraka-bank'), 'logo' => 'image/clients/al-baraka-bank.svg'],
-            ['name' => __('site.clients.items.helwan-steel'), 'logo' => 'image/clients/helwan-steel.svg'],
-        ];
-    }
-
-    /**
-     * @return list<array{name: string, icon: string}>
-     */
-    protected function partners(): array
-    {
-        return [
-            ['name' => __('site.partners.items.registry'), 'icon' => 'registry'],
-            ['name' => __('site.partners.items.survey'), 'icon' => 'survey'],
-            ['name' => __('site.partners.items.aviation'), 'icon' => 'aviation'],
-            ['name' => __('site.partners.items.antiquities'), 'icon' => 'antiquities'],
-            ['name' => __('site.partners.items.water'), 'icon' => 'water'],
-            ['name' => __('site.partners.items.investment'), 'icon' => 'investment'],
-            ['name' => __('site.partners.items.telecom'), 'icon' => 'telecom'],
-            ['name' => __('site.partners.items.urban'), 'icon' => 'urban'],
-            ['name' => __('site.partners.items.city'), 'icon' => 'city'],
-            ['name' => __('site.partners.items.city-oct'), 'icon' => 'city-oct'],
-            ['name' => __('site.partners.items.government'), 'icon' => 'government'],
         ];
     }
 }

@@ -7,10 +7,10 @@
         @if ($showHeading ?? true)
             <div class="reveal text-center heading-stack mx-auto max-w-3xl">
                 <span class="heading-watermark left-1/2 -translate-x-1/2" aria-hidden="true">تواصل</span>
-                <p class="section-eyebrow mx-auto justify-center">{{ __('site.contact.eyebrow') }}</p>
-                <h2 class="section-title section-title-center">{{ __('site.contact.title') }}</h2>
+                <p class="section-eyebrow mx-auto justify-center">{{ setting_text('contact_eyebrow', 'site.contact.eyebrow') }}</p>
+                <h2 class="section-title section-title-center">{{ setting_text('contact_title', 'site.contact.title') }}</h2>
                 <p class="section-lead mx-auto">
-                    {{ __('site.contact.lead') }}
+                    {{ setting_text('contact_lead', 'site.contact.lead') }}
                 </p>
             </div>
         @endif

@@ -17,13 +17,13 @@
             <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div class="heading-stack">
                     <span class="heading-watermark" aria-hidden="true">{{ is_arabic() ? 'خدمات' : 'Services' }}</span>
-                    <p class="section-eyebrow">{{ __('site.services.eyebrow') }}</p>
+                    <p class="section-eyebrow">{{ setting_text('services_eyebrow', 'site.services.eyebrow') }}</p>
                     <h2 class="section-title">{{ __('site.services.page_title') }}</h2>
                     <p class="section-lead">
                         {{ __('site.services.page_lead') }}
                     </p>
                 </div>
-                <a href="{{ route('contact') }}" class="btn-service shrink-0 self-start">{{ __('site.cta.request_service') }}</a>
+                <a href="{{ route('contact') }}" class="btn-service shrink-0 self-start">{{ setting_text('cta_request_service', 'site.cta.request_service') }}</a>
             </div>
 
             <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -60,7 +60,7 @@
                 <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
                     {{ __('site.services.cta_lead') }}
                 </p>
-                <a href="{{ route('contact') }}" class="btn-primary mt-8 bg-white text-brand hover:bg-fog">{{ __('site.cta.contact_now') }}</a>
+                <a href="{{ route('contact') }}" class="btn-primary mt-8 bg-white text-brand hover:bg-fog">{{ setting_text('cta_contact_now', 'site.cta.contact_now') }}</a>
             </div>
         </div>
     </section>

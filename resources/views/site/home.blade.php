@@ -51,7 +51,7 @@
                                         {{ $slideButton }}
                                     </a>
                                 @endif
-                                <a href="{{ route('services') }}" class="btn-ghost">{{ __('site.cta.view_services') }}</a>
+                                <a href="{{ route('services') }}" class="btn-ghost">{{ setting_text('cta_view_services', 'site.cta.view_services') }}</a>
                             </div>
                         </div>
                     </div>
@@ -104,41 +104,50 @@
                 <div class="reveal soft-panel lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none lg:border-0">
                     <div class="heading-stack">
                         <span class="heading-watermark" aria-hidden="true">مواثيق</span>
-                        <p class="section-eyebrow">{{ __('site.intro.eyebrow') }}</p>
-                        <h2 class="section-title">{{ __('site.intro.title') }}</h2>
+                        <p class="section-eyebrow">{{ setting_text('intro_eyebrow', 'site.intro.eyebrow') }}</p>
+                        <h2 class="section-title">{{ setting_text('intro_title', 'site.intro.title') }}</h2>
                     </div>
 
                     <div class="mt-6 space-y-5 text-base leading-9 text-brand/80 sm:text-lg sm:leading-9">
-                        <p>{{ __('site.intro.p1') }}</p>
-                        <p>{{ __('site.intro.p2') }}</p>
-                        <p>{{ __('site.intro.p3') }}</p>
-                        <p class="font-bold text-brand">{{ __('site.intro.p4') }}</p>
+                        <p>{{ setting_text('intro_p1', 'site.intro.p1') }}</p>
+                        <p>{{ setting_text('intro_p2', 'site.intro.p2') }}</p>
+                        <p>{{ setting_text('intro_p3', 'site.intro.p3') }}</p>
+                        <p class="font-bold text-brand">{{ setting_text('intro_p4', 'site.intro.p4') }}</p>
                     </div>
 
+                    @php
+                        if (is_arabic() && filled($settings['intro_tags'] ?? null)) {
+                            $introTags = array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $settings['intro_tags']))));
+                        } else {
+                            $introTags = __('site.intro.tags');
+                            $introTags = is_array($introTags) ? $introTags : [];
+                        }
+                    @endphp
+
                     <div class="mt-8 flex flex-wrap gap-2.5">
-                        @foreach (__('site.intro.tags') as $tag)
+                        @foreach ($introTags as $tag)
                             <span class="intro-chip">{{ $tag }}</span>
                         @endforeach
                     </div>
 
                     <div class="trust-strip reveal" style="transition-delay: 140ms">
                         <div class="trust-item">
-                            <strong>{{ __('site.intro.trust_exp') }}</strong>
-                            <span>{{ __('site.intro.trust_exp_sub') }}</span>
+                            <strong>{{ setting_text('intro_trust_exp', 'site.intro.trust_exp') }}</strong>
+                            <span>{{ setting_text('intro_trust_exp_sub', 'site.intro.trust_exp_sub') }}</span>
                         </div>
                         <div class="trust-item">
-                            <strong>{{ __('site.intro.trust_speed') }}</strong>
-                            <span>{{ __('site.intro.trust_speed_sub') }}</span>
+                            <strong>{{ setting_text('intro_trust_speed', 'site.intro.trust_speed') }}</strong>
+                            <span>{{ setting_text('intro_trust_speed_sub', 'site.intro.trust_speed_sub') }}</span>
                         </div>
                         <div class="trust-item">
-                            <strong>{{ __('site.intro.trust_commit') }}</strong>
-                            <span>{{ __('site.intro.trust_commit_sub') }}</span>
+                            <strong>{{ setting_text('intro_trust_commit', 'site.intro.trust_commit') }}</strong>
+                            <span>{{ setting_text('intro_trust_commit_sub', 'site.intro.trust_commit_sub') }}</span>
                         </div>
                     </div>
 
                     <div class="intro-actions">
-                        <a href="{{ route('services') }}" class="btn-primary">{{ __('site.cta.view_services') }}</a>
-                        <a href="{{ route('contact') }}" class="btn-outline">{{ __('site.cta.contact_us') }}</a>
+                        <a href="{{ route('services') }}" class="btn-primary">{{ setting_text('cta_view_services', 'site.cta.view_services') }}</a>
+                        <a href="{{ route('contact') }}" class="btn-outline">{{ setting_text('cta_contact_us', 'site.cta.contact_us') }}</a>
                     </div>
                 </div>
 
@@ -146,8 +155,8 @@
                     <div class="intro-photo-accent" aria-hidden="true"></div>
                     <div class="photo-frame aspect-[4/5] sm:aspect-[5/6]">
                         <img
-                            src="{{ asset('image/sections/intro.jpg') }}"
-                            alt="بيئة عمل احترافية في المواثيق للخدمات الحكومية"
+                            src="{{ asset($settings['intro_image'] ?: 'image/sections/intro.jpg') }}"
+                            alt="{{ setting_text('intro_title', 'site.intro.title') }}"
                             loading="lazy"
                         >
                     </div>
@@ -158,8 +167,8 @@
                             </svg>
                         </span>
                         <div>
-                            <p class="text-xs font-bold text-white/70">{{ __('site.intro.float_label') }}</p>
-                            <p class="mt-0.5 text-sm font-extrabold text-white">{{ __('site.intro.float_value') }}</p>
+                            <p class="text-xs font-bold text-white/70">{{ setting_text('intro_float_label', 'site.intro.float_label') }}</p>
+                            <p class="mt-0.5 text-sm font-extrabold text-white">{{ setting_text('intro_float_value', 'site.intro.float_value') }}</p>
                         </div>
                     </div>
                 </div>
@@ -176,13 +185,13 @@
             <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div class="heading-stack">
                     <span class="heading-watermark" aria-hidden="true">خدمات</span>
-                    <p class="section-eyebrow">{{ __('site.services.eyebrow') }}</p>
-                    <h2 class="section-title">{{ __('site.services.title') }}</h2>
+                    <p class="section-eyebrow">{{ setting_text('services_eyebrow', 'site.services.eyebrow') }}</p>
+                    <h2 class="section-title">{{ setting_text('services_title', 'site.services.title') }}</h2>
                     <p class="section-lead">
-                        {{ __('site.services.lead') }}
+                        {{ setting_text('services_lead', 'site.services.lead') }}
                     </p>
                 </div>
-                <a href="{{ route('contact') }}" class="btn-service shrink-0 self-start">{{ __('site.cta.request_service') }}</a>
+                <a href="{{ route('contact') }}" class="btn-service shrink-0 self-start">{{ setting_text('cta_request_service', 'site.cta.request_service') }}</a>
             </div>
 
             <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -229,14 +238,14 @@
                     <div class="reveal heading-stack">
                         <span class="heading-watermark" aria-hidden="true">أهداف</span>
                         <div class="flex items-center gap-3">
-                            <p class="section-eyebrow">{{ __('site.goals.eyebrow') }}</p>
+                            <p class="section-eyebrow">{{ setting_text('goals_eyebrow', 'site.goals.eyebrow') }}</p>
                             <div class="goal-accent-bars" aria-hidden="true">
                                 <span></span><span></span><span></span><span></span>
                             </div>
                         </div>
-                        <h2 class="section-title">{{ __('site.goals.title') }}</h2>
+                        <h2 class="section-title">{{ setting_text('goals_title', 'site.goals.title') }}</h2>
                         <p class="section-lead">
-                            {{ locale_text('site.goals.subtitle', $settings['goals_subtitle'] ?? null) }}
+                            {{ setting_text('goals_subtitle', 'site.goals.subtitle') }}
                         </p>
                     </div>
 
@@ -264,7 +273,7 @@
                     </div>
 
                     <div class="reveal mt-10" style="transition-delay: 220ms">
-                        <a href="{{ route('contact') }}" class="btn-primary">{{ __('site.cta.start_goal') }}</a>
+                        <a href="{{ route('contact') }}" class="btn-primary">{{ setting_text('cta_contact_now', 'site.cta.start_goal') }}</a>
                     </div>
                 </div>
 
@@ -309,12 +318,12 @@
                 <div class="why-panel-glow" aria-hidden="true"></div>
 
                 <div class="relative z-10">
-                    <p class="reveal text-sm font-bold tracking-[0.2em] text-white/75">{{ __('site.why.eyebrow') }}</p>
+                    <p class="reveal text-sm font-bold tracking-[0.2em] text-white/75">{{ setting_text('why_eyebrow', 'site.why.eyebrow') }}</p>
                     <h2 class="reveal mt-3 text-4xl font-extrabold leading-snug sm:text-5xl lg:text-[3.4rem]">
-                        {{ __('site.why.title') }}
+                        {{ setting_text('why_title', 'site.why.title') }}
                     </h2>
                     <p class="reveal mt-4 max-w-md text-base leading-8 text-white/85">
-                        {{ __('site.why.lead') }}
+                        {{ setting_text('why_lead', 'site.why.lead') }}
                     </p>
                 </div>
 
@@ -365,7 +374,7 @@
                 </ul>
 
                 <div class="reveal relative z-10 mt-10">
-                    <a href="{{ route('contact') }}" class="btn-primary">{{ __('site.cta.contact_now') }}</a>
+                    <a href="{{ route('contact') }}" class="btn-primary">{{ setting_text('cta_contact_now', 'site.cta.contact_now') }}</a>
                 </div>
             </div>
         </div>
@@ -412,10 +421,10 @@
         <div class="site-container">
             <div class="reveal text-center heading-stack mx-auto max-w-3xl">
                 <span class="heading-watermark left-1/2 -translate-x-1/2" aria-hidden="true">شركاء</span>
-                <p class="section-eyebrow mx-auto justify-center">{{ __('site.clients.eyebrow') }}</p>
-                <h2 class="section-title section-title-center">{{ __('site.clients.title') }}</h2>
+                <p class="section-eyebrow mx-auto justify-center">{{ setting_text('clients_eyebrow', 'site.clients.eyebrow') }}</p>
+                <h2 class="section-title section-title-center">{{ setting_text('clients_title', 'site.clients.title') }}</h2>
                 <p class="section-lead mx-auto">
-                    {{ __('site.clients.lead') }}
+                    {{ setting_text('clients_lead', 'site.clients.lead') }}
                 </p>
             </div>
         </div>
@@ -426,9 +435,11 @@
 
             <div class="clients-marquee" dir="ltr">
                 <div class="clients-track">
-                    @foreach (array_merge($clients, $clients) as $client)
-                        <article class="client-logo-card" title="{{ $client['name'] }}">
-                            <img src="{{ asset($client['logo']) }}" alt="{{ $client['name'] }}" loading="lazy">
+                    @foreach ($clients->concat($clients) as $client)
+                        <article class="client-logo-card" title="{{ $client->name }}">
+                            @if ($client->logo_url)
+                                <img src="{{ $client->logo_url }}" alt="{{ $client->name }}" loading="lazy">
+                            @endif
                         </article>
                     @endforeach
                 </div>
@@ -436,9 +447,11 @@
 
             <div class="clients-marquee clients-marquee--reverse mt-5" dir="ltr">
                 <div class="clients-track">
-                    @foreach (array_merge(array_reverse($clients), array_reverse($clients)) as $client)
-                        <article class="client-logo-card" title="{{ $client['name'] }}">
-                            <img src="{{ asset($client['logo']) }}" alt="{{ $client['name'] }}" loading="lazy">
+                    @foreach ($clients->reverse()->concat($clients->reverse()) as $client)
+                        <article class="client-logo-card" title="{{ $client->name }}">
+                            @if ($client->logo_url)
+                                <img src="{{ $client->logo_url }}" alt="{{ $client->name }}" loading="lazy">
+                            @endif
                         </article>
                     @endforeach
                 </div>
@@ -448,16 +461,16 @@
         <div class="site-container mt-12">
             <div class="reveal clients-trustbar">
                 <div class="clients-trust-item">
-                    <strong>{{ count($clients) }}+</strong>
-                    <span>{{ __('site.clients.count_label') }}</span>
+                    <strong>{{ $clients->count() }}+</strong>
+                    <span>{{ setting_text('clients_count_label', 'site.clients.count_label') }}</span>
                 </div>
                 <div class="clients-trust-item">
-                    <strong>{{ __('site.clients.sectors') }}</strong>
-                    <span>{{ __('site.clients.sectors_sub') }}</span>
+                    <strong>{{ setting_text('clients_sectors', 'site.clients.sectors') }}</strong>
+                    <span>{{ setting_text('clients_sectors_sub', 'site.clients.sectors_sub') }}</span>
                 </div>
                 <div class="clients-trust-item">
-                    <strong>{{ __('site.clients.partnership') }}</strong>
-                    <span>{{ __('site.clients.partnership_sub') }}</span>
+                    <strong>{{ setting_text('clients_partnership', 'site.clients.partnership') }}</strong>
+                    <span>{{ setting_text('clients_partnership_sub', 'site.clients.partnership_sub') }}</span>
                 </div>
             </div>
         </div>
@@ -471,16 +484,16 @@
         <div class="site-container relative z-10">
             <div class="partners-intro reveal">
                 <div>
-                    <p class="section-eyebrow">{{ __('site.partners.eyebrow') }}</p>
-                    <h2 class="section-title">{{ __('site.partners.title') }}</h2>
+                    <p class="section-eyebrow">{{ setting_text('partners_eyebrow', 'site.partners.eyebrow') }}</p>
+                    <h2 class="section-title">{{ setting_text('partners_title', 'site.partners.title') }}</h2>
                     <p class="section-lead">
-                        {{ __('site.partners.lead') }}
+                        {{ setting_text('partners_lead', 'site.partners.lead') }}
                     </p>
                 </div>
                 <div class="partners-intro-seal" aria-hidden="true">
                     <span class="partners-intro-seal-ring"></span>
-                    <strong>{{ count($partners) }}</strong>
-                    <small>{{ __('site.partners.seal') }}</small>
+                    <strong>{{ $partners->count() }}</strong>
+                    <small>{{ setting_text('partners_seal', 'site.partners.seal') }}</small>
                 </div>
             </div>
 
@@ -493,21 +506,16 @@
 
                 <div class="partners-nodes">
                     @foreach ($partners as $index => $partner)
-                        @php
-                            $isLast = $loop->last;
-                            $name = $partner['name'];
-                            $icon = $partner['icon'];
-                        @endphp
                         <article
-                            class="reveal partner-node {{ $isLast ? 'partner-node--wide' : '' }}"
+                            class="reveal partner-node {{ $loop->last ? 'partner-node--wide' : '' }}"
                             style="transition-delay: {{ $index * 70 }}ms"
                         >
                             <span class="partner-node-seal" aria-hidden="true">
-                                @include('site.partials.partner-icon', ['icon' => $icon])
+                                @include('site.partials.partner-icon', ['icon' => $partner->icon])
                             </span>
                             <div class="partner-node-body">
-                                <span class="partner-node-label">{{ __('site.partners.label') }}</span>
-                                <h3>{{ $name }}</h3>
+                                <span class="partner-node-label">{{ setting_text('partners_label', 'site.partners.label') }}</span>
+                                <h3>{{ $partner->name }}</h3>
                             </div>
                         </article>
                     @endforeach

@@ -4,7 +4,7 @@
 
 @section('content')
     @include('site.partials.page-hero', [
-        'eyebrow' => __('site.intro.eyebrow'),
+        'eyebrow' => setting_text('intro_eyebrow', 'site.intro.eyebrow'),
         'title' => __('site.home_extra.about_block_title'),
         'current' => __('site.nav.about'),
         'lead' => is_arabic()
@@ -21,17 +21,27 @@
                 <div class="reveal soft-panel lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none lg:border-0">
                     <div class="heading-stack">
                         <span class="heading-watermark" aria-hidden="true">مواثيق</span>
-                        <p class="section-eyebrow">{{ __('site.intro.eyebrow') }}</p>
-                        <h2 class="section-title">{{ __('site.intro.title') }}</h2>
+                        <p class="section-eyebrow">{{ setting_text('intro_eyebrow', 'site.intro.eyebrow') }}</p>
+                        <h2 class="section-title">{{ setting_text('intro_title', 'site.intro.title') }}</h2>
                     </div>
                     <div class="mt-6 space-y-5 text-base leading-9 text-brand/80 sm:text-lg sm:leading-9">
-                        <p>{{ __('site.intro.p1') }}</p>
-                        <p>{{ __('site.intro.p2') }}</p>
-                        <p>{{ __('site.intro.p3') }}</p>
-                        <p class="font-bold text-brand">{{ __('site.intro.p4') }}</p>
+                        <p>{{ setting_text('intro_p1', 'site.intro.p1') }}</p>
+                        <p>{{ setting_text('intro_p2', 'site.intro.p2') }}</p>
+                        <p>{{ setting_text('intro_p3', 'site.intro.p3') }}</p>
+                        <p class="font-bold text-brand">{{ setting_text('intro_p4', 'site.intro.p4') }}</p>
                     </div>
+
+                    @php
+                        if (is_arabic() && filled($settings['intro_tags'] ?? null)) {
+                            $introTags = array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $settings['intro_tags']))));
+                        } else {
+                            $introTags = __('site.intro.tags');
+                            $introTags = is_array($introTags) ? $introTags : [];
+                        }
+                    @endphp
+
                     <div class="mt-8 flex flex-wrap gap-2.5">
-                        @foreach (__('site.intro.tags') as $tag)
+                        @foreach ($introTags as $tag)
                             <span class="intro-chip">{{ $tag }}</span>
                         @endforeach
                     </div>
@@ -39,7 +49,11 @@
                 <div class="reveal-left relative" style="transition-delay: 120ms">
                     <div class="intro-photo-accent" aria-hidden="true"></div>
                     <div class="photo-frame aspect-[4/5] sm:aspect-[5/6]">
-                        <img src="{{ asset('image/sections/intro.jpg') }}" alt="بيئة عمل احترافية في المواثيق" loading="lazy">
+                        <img
+                            src="{{ asset($settings['intro_image'] ?: 'image/sections/intro.jpg') }}"
+                            alt="{{ setting_text('intro_title', 'site.intro.title') }}"
+                            loading="lazy"
+                        >
                     </div>
                 </div>
             </div>
@@ -86,11 +100,11 @@
                     <div class="reveal heading-stack">
                         <span class="heading-watermark" aria-hidden="true">أهداف</span>
                         <div class="flex items-center gap-3">
-                            <p class="section-eyebrow">{{ __('site.goals.eyebrow') }}</p>
+                            <p class="section-eyebrow">{{ setting_text('goals_eyebrow', 'site.goals.eyebrow') }}</p>
                             <div class="goal-accent-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
                         </div>
-                        <h2 class="section-title">{{ __('site.goals.title') }}</h2>
-                        <p class="section-lead">{{ locale_text('site.goals.subtitle', $settings['goals_subtitle'] ?? null) }}</p>
+                        <h2 class="section-title">{{ setting_text('goals_title', 'site.goals.title') }}</h2>
+                        <p class="section-lead">{{ setting_text('goals_subtitle', 'site.goals.subtitle') }}</p>
                     </div>
                     <div class="goals-grid mt-11">
                         @forelse ($goals as $index => $goal)
@@ -133,9 +147,9 @@
             <div class="why-panel-brand relative flex flex-col justify-between overflow-hidden px-6 py-14 text-white sm:px-10 sm:py-16 lg:px-14 lg:py-20">
                 <div class="why-panel-glow" aria-hidden="true"></div>
                 <div class="relative z-10">
-                    <p class="reveal text-sm font-bold tracking-[0.2em] text-white/75">{{ __('site.why.eyebrow') }}</p>
-                    <h2 class="reveal mt-3 text-4xl font-extrabold leading-snug sm:text-5xl">{{ __('site.why.title') }}</h2>
-                    <p class="reveal mt-4 max-w-md text-base leading-8 text-white/85">{{ __('site.why.lead') }}</p>
+                    <p class="reveal text-sm font-bold tracking-[0.2em] text-white/75">{{ setting_text('why_eyebrow', 'site.why.eyebrow') }}</p>
+                    <h2 class="reveal mt-3 text-4xl font-extrabold leading-snug sm:text-5xl">{{ setting_text('why_title', 'site.why.title') }}</h2>
+                    <p class="reveal mt-4 max-w-md text-base leading-8 text-white/85">{{ setting_text('why_lead', 'site.why.lead') }}</p>
                 </div>
                 <div class="reveal relative z-10 mt-10" style="transition-delay: 100ms">
                     <div class="why-photo-frame">
@@ -156,7 +170,7 @@
                     @endforelse
                 </ul>
                 <div class="reveal relative z-10 mt-10">
-                    <a href="{{ route('contact') }}" class="btn-primary">{{ __('site.cta.contact_now') }}</a>
+                    <a href="{{ route('contact') }}" class="btn-primary">{{ setting_text('cta_contact_now', 'site.cta.contact_now') }}</a>
                 </div>
             </div>
         </div>

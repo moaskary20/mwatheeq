@@ -28,7 +28,7 @@
                     >
                 </div>
             </div>
-            <p class="site-preloader-welcome">{{ __('site.welcome') }}</p>
+            <p class="site-preloader-welcome">{{ setting_text('preloader_welcome', 'site.welcome') }}</p>
         </div>
     </div>
 
@@ -72,7 +72,7 @@
                     <span>{{ strtoupper($nextLocale) }}</span>
                 </a>
 
-                <a href="{{ route('contact') }}" class="btn-primary hidden md:inline-flex !py-2.5 !px-5 !text-xs">{{ __('site.cta.consult') }}</a>
+                <a href="{{ route('contact') }}" class="btn-primary hidden md:inline-flex !py-2.5 !px-5 !text-xs">{{ setting_text('cta_consult', 'site.cta.consult') }}</a>
                 <button
                     type="button"
                     data-menu-toggle
@@ -125,7 +125,7 @@
             <a href="{{ route('locale.switch', is_arabic() ? 'en' : 'ar') }}" class="btn-outline w-full justify-center">
                 {{ is_arabic() ? __('site.switch_to_en') : __('site.switch_to_ar') }}
             </a>
-            <a href="{{ route('contact') }}" class="btn-primary mt-3 w-full justify-center">{{ __('site.cta.consult') }}</a>
+            <a href="{{ route('contact') }}" class="btn-primary mt-3 w-full justify-center">{{ setting_text('cta_consult', 'site.cta.consult') }}</a>
         </div>
     </aside>
 
@@ -156,15 +156,16 @@
                     &copy; {{ date('Y') }} {{ __('site.brand') }} — {{ __('site.footer.rights') }}
                 </p>
                 <p class="footer-credit">
-                    <span class="footer-credit-label">{{ __('site.footer.designed_by') }}</span>
-                    <span class="footer-credit-brand">Caesar Agency</span>
+                    <span class="footer-credit-label">{{ setting_text('footer_designed_by', 'site.footer.designed_by') }}</span>
+                    <span class="footer-credit-brand">{{ $settings['footer_designer_name'] ?? 'Caesar Agency' }}</span>
                 </p>
             </div>
         </div>
     </footer>
 
     @php
-        $floatWhatsapp = preg_replace('/\D+/', '', $settings['whatsapp'] ?? '01272269000');
+        $whatsappDisplay = $settings['whatsapp_display'] ?? '01272269000';
+        $floatWhatsapp = preg_replace('/\D+/', '', $settings['whatsapp'] ?? $whatsappDisplay);
         if (str_starts_with($floatWhatsapp, '0')) {
             $floatWhatsapp = '20'.substr($floatWhatsapp, 1);
         }
@@ -179,8 +180,8 @@
             class="whatsapp-float"
             target="_blank"
             rel="noopener"
-            aria-label="{{ __('site.whatsapp_aria', ['phone' => '01272269000']) }}"
-            title="{{ __('site.whatsapp') }}: 01272269000"
+            aria-label="{{ __('site.whatsapp_aria', ['phone' => $whatsappDisplay]) }}"
+            title="{{ __('site.whatsapp') }}: {{ $whatsappDisplay }}"
         >
             <span class="whatsapp-float-pulse" aria-hidden="true"></span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="whatsapp-float-icon" aria-hidden="true">

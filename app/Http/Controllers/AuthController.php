@@ -97,9 +97,13 @@ class AuthController extends Controller
             'site_tagline' => '',
             'hero_subtitle' => '',
             'footer_text' => '',
+            'footer_designed_by' => '',
+            'footer_designer_name' => '',
+            'preloader_welcome' => '',
             'phone' => '',
             'email' => '',
             'whatsapp' => '',
+            'whatsapp_display' => '',
             'facebook_url' => '',
             'instagram_url' => '',
         ]);
