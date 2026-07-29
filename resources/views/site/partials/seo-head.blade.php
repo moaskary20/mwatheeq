@@ -36,6 +36,7 @@
         ? 'noindex,nofollow'
         : (trim((string) $seo('seo_robots', 'index,follow')) ?: 'index,follow');
     $author = trim((string) $seo('seo_author', __('site.brand')));
+    $themeColor = trim((string) $seo('seo_theme_color', '#3154ad')) ?: '#3154ad';
 
     $ogTitle = trim((string) ($seo('seo_og_title') ?: $metaTitle));
     $ogDescription = trim((string) ($seo('seo_og_description') ?: $metaDescription));
@@ -50,12 +51,36 @@
 
     $googleVerification = trim((string) $seo('seo_google_verification'));
     $bingVerification = trim((string) $seo('seo_bing_verification'));
+    $yandexVerification = trim((string) $seo('seo_yandex_verification'));
     $gaId = trim((string) $seo('seo_google_analytics_id'));
+    $googleTagId = trim((string) $seo('seo_google_tag_id'));
+    $googleAdsId = trim((string) $seo('seo_google_ads_id'));
     $gtmId = trim((string) $seo('seo_google_tag_manager_id'));
+    $facebookPixelId = trim((string) $seo('seo_facebook_pixel_id'));
+    $facebookDomainVerification = trim((string) $seo('seo_facebook_domain_verification'));
+
+    $hreflangAr = trim((string) $seo('seo_hreflang_ar'));
+    $hreflangEn = trim((string) $seo('seo_hreflang_en'));
+    $hreflangDefault = trim((string) $seo('seo_hreflang_x_default'));
+    $customHead = trim((string) $seo('seo_custom_head'));
 
     $schemaName = trim((string) ($seo('seo_schema_org_name') ?: __('site.brand')));
-    $schemaType = trim((string) $seo('seo_schema_org_type', 'Organization')) ?: 'Organization';
+    $schemaType = trim((string) $seo('seo_schema_org_type', 'ProfessionalService')) ?: 'ProfessionalService';
     $schemaLogo = $seoUrl($seo('seo_schema_org_logo')) ?: asset('image/logo.png');
+    $schemaPhone = trim((string) ($seo('seo_schema_phone') ?: ($settings['phone'] ?? '')));
+    $schemaEmail = trim((string) ($seo('seo_schema_email') ?: ($settings['email'] ?? '')));
+    $schemaAddress = trim((string) ($seo('seo_schema_address') ?: ($settings['address'] ?? '')));
+    $schemaCity = trim((string) $seo('seo_schema_city'));
+    $schemaRegion = trim((string) $seo('seo_schema_region'));
+    $schemaPostal = trim((string) $seo('seo_schema_postal_code'));
+    $schemaCountry = trim((string) ($seo('seo_schema_country') ?: 'EG'));
+    $schemaLat = trim((string) $seo('seo_schema_lat'));
+    $schemaLng = trim((string) $seo('seo_schema_lng'));
+    $sameAs = collect(preg_split('/\r\n|\r|\n/', (string) $seo('seo_schema_same_as')))
+        ->map(fn ($line) => trim($line))
+        ->filter()
+        ->values()
+        ->all();
 
     $schema = [
         '@context' => 'https://schema.org',
@@ -63,20 +88,53 @@
         'name' => $schemaName,
         'url' => $canonical,
         'logo' => $schemaLogo,
+        'image' => $ogImage,
         'description' => $metaDescription,
     ];
 
     if ($focusKeyword !== '') {
         $schema['keywords'] = $focusKeyword;
     }
-@endphp
+    if ($schemaPhone !== '') {
+        $schema['telephone'] = $schemaPhone;
+    }
+    if ($schemaEmail !== '') {
+        $schema['email'] = $schemaEmail;
+    }
+    if ($schemaAddress !== '' || $schemaCity !== '') {
+        $schema['address'] = array_filter([
+            '@type' => 'PostalAddress',
+            'streetAddress' => $schemaAddress ?: null,
+            'addressLocality' => $schemaCity ?: null,
+            'addressRegion' => $schemaRegion ?: null,
+            'postalCode' => $schemaPostal ?: null,
+            'addressCountry' => $schemaCountry ?: null,
+        ]);
+    }
+    if ($schemaLat !== '' && $schemaLng !== '') {
+        $schema['geo'] = [
+            '@type' => 'GeoCoordinates',
+            'latitude' => $schemaLat,
+            'longitude' => $schemaLng,
+        ];
+    }
+    if ($sameAs !== []) {
+        $schema['sameAs'] = $sameAs;
+    }
 
-@php
+    $gtagIds = collect([$googleTagId, $gaId, $googleAdsId])
+        ->map(fn ($id) => trim((string) $id))
+        ->filter()
+        ->unique()
+        ->values()
+        ->all();
+
     $resolvedTitle = trim($__env->yieldContent('title'));
     if ($resolvedTitle === '') {
         $resolvedTitle = $metaTitle !== '' ? $metaTitle : __('site.brand_short');
     }
 @endphp
+
 <title>{{ $resolvedTitle }}</title>
 <meta name="description" content="{{ $metaDescription }}">
 @if ($metaKeywords !== '')
@@ -89,7 +147,19 @@
     <meta name="author" content="{{ $author }}">
 @endif
 <meta name="robots" content="{{ $robots }}">
+<meta name="googlebot" content="{{ $robots }}">
+<meta name="theme-color" content="{{ $themeColor }}">
 <link rel="canonical" href="{{ $canonical }}">
+
+@if ($hreflangAr !== '')
+    <link rel="alternate" hreflang="ar" href="{{ $hreflangAr }}">
+@endif
+@if ($hreflangEn !== '')
+    <link rel="alternate" hreflang="en" href="{{ $hreflangEn }}">
+@endif
+@if ($hreflangDefault !== '')
+    <link rel="alternate" hreflang="x-default" href="{{ $hreflangDefault }}">
+@endif
 
 <meta property="og:locale" content="{{ app()->getLocale() === 'ar' ? 'ar_EG' : 'en_US' }}">
 <meta property="og:type" content="{{ $ogType }}">
@@ -110,6 +180,12 @@
 @if ($bingVerification !== '')
     <meta name="msvalidate.01" content="{{ $bingVerification }}">
 @endif
+@if ($yandexVerification !== '')
+    <meta name="yandex-verification" content="{{ $yandexVerification }}">
+@endif
+@if ($facebookDomainVerification !== '')
+    <meta name="facebook-domain-verification" content="{{ $facebookDomainVerification }}">
+@endif
 
 <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
 
@@ -121,12 +197,38 @@
     })(window,document,'script','dataLayer','{{ $gtmId }}');</script>
 @endif
 
-@if ($gaId !== '')
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaId }}"></script>
+@if (count($gtagIds) > 0)
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gtagIds[0] }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', '{{ $gaId }}');
+        @foreach ($gtagIds as $tagId)
+            gtag('config', '{{ $tagId }}');
+        @endforeach
     </script>
+@endif
+
+@if ($facebookPixelId !== '')
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '{{ $facebookPixelId }}');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id={{ $facebookPixelId }}&ev=PageView&noscript=1"
+             alt="">
+    </noscript>
+@endif
+
+@if ($customHead !== '')
+    {!! $customHead !!}
 @endif

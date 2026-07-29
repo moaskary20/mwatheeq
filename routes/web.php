@@ -9,15 +9,49 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/robots.txt', function () {
     $content = \App\Models\Setting::get('seo_robots_txt');
+    $sitemap = \App\Models\Setting::get('seo_sitemap_url') ?: url('/sitemap.xml');
 
     if (blank($content)) {
-        $content = "User-agent: *\nAllow: /\nSitemap: ".url('/sitemap.xml');
+        $content = "User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /login\nDisallow: /register\nSitemap: {$sitemap}\n";
+    } elseif (! str_contains($content, 'Sitemap:')) {
+        $content = rtrim($content)."\nSitemap: {$sitemap}\n";
     }
 
     return response($content, 200, [
         'Content-Type' => 'text/plain; charset=UTF-8',
     ]);
 })->name('robots');
+
+Route::get('/sitemap.xml', function () {
+    $urls = [
+        url('/'),
+        url('/services'),
+        url('/about'),
+        url('/blog'),
+        url('/contact'),
+    ];
+
+    if (class_exists(\App\Models\BlogPost::class)) {
+        \App\Models\BlogPost::query()
+            ->where('is_published', true)
+            ->orderByDesc('published_at')
+            ->get(['slug', 'updated_at', 'published_at'])
+            ->each(function ($post) use (&$urls) {
+                $urls[] = url('/blog/'.$post->slug);
+            });
+    }
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
+    foreach (array_unique($urls) as $loc) {
+        $xml .= '  <url><loc>'.e($loc).'</loc><changefreq>weekly</changefreq></url>'."\n";
+    }
+    $xml .= '</urlset>';
+
+    return response($xml, 200, [
+        'Content-Type' => 'application/xml; charset=UTF-8',
+    ]);
+})->name('sitemap');
 
 Route::get('/locale/{locale}', [LocaleController::class, 'switch'])
     ->whereIn('locale', ['ar', 'en'])
