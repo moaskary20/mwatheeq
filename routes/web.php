@@ -7,6 +7,18 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ServiceRequestController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/robots.txt', function () {
+    $content = \App\Models\Setting::get('seo_robots_txt');
+
+    if (blank($content)) {
+        $content = "User-agent: *\nAllow: /\nSitemap: ".url('/sitemap.xml');
+    }
+
+    return response($content, 200, [
+        'Content-Type' => 'text/plain; charset=UTF-8',
+    ]);
+})->name('robots');
+
 Route::get('/locale/{locale}', [LocaleController::class, 'switch'])
     ->whereIn('locale', ['ar', 'en'])
     ->name('locale.switch');

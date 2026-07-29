@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="{{ $settings['hero_subtitle'] ?? __('site.brand') }}">
-    <title>@yield('title', __('site.brand_short'))</title>
+    @include('site.partials.seo-head')
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +13,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen font-sans">
+    @php $gtmIdBody = trim((string) \App\Models\Setting::get('seo_google_tag_manager_id', '')); @endphp
+    @if ($gtmIdBody !== '')
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmIdBody }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+    @endif
     <div id="site-preloader" class="site-preloader" role="status" aria-live="polite" aria-label="{{ __('site.loading') }}">
         <div class="site-preloader-inner">
             <p class="site-preloader-kicker">{{ __('site.brand') }}</p>
